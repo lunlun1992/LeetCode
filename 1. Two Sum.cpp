@@ -10,7 +10,7 @@ public:
         for(int i = 0; i < len; i++)
         {
             int another = target - nums[i];
-            if(0 != s.count(another))
+            if(s.count(another))
                 return {s[another], i};
             s[nums[i]] = i;
         }
