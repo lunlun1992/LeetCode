@@ -9,41 +9,29 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode *node, int leftlen, int rightlen)
-    {
-        if(NULL == node)
-            return 0;
-        int lleft = 0;
-        int rright = 0;
-        
-        TreeNode *n = node;
-        if(leftlen == -1)
-        {
-            while(n != NULL)
-            {
-                n = n->left;
-                lleft++;
-            }
-            leftlen = lleft;
-        }
-        
-        n = node;
-        if(rightlen == -1)
-        {
-            while(n != NULL)
-            {
-                n = n->right;
-                rright++;
-            }
-            rightlen = rright;
-        }
-        if(leftlen == rightlen)
-            return (1 << leftlen) - 1;
-        else
-            return 1 + dfs(node->left, leftlen - 1, -1) + dfs(node->right, -1, rightlen - 1);
-    }
     int countNodes(TreeNode* root) 
     {
-        return dfs(root, -1, -1);    
+        if(!root)
+            return 0;
+        int llen = 0;
+        int rlen = 0;
+        TreeNode *node = root;
+        while(node)
+        {
+            llen++;
+            node = node->left;
+        }
+        
+        node = root;
+        while(node)
+        {
+            rlen++;
+            node = node->right;
+        }
+        
+        if(llen == rlen)
+            return (1 << llen) - 1;
+        else
+            return countNodes(root->left) + countNodes(root->right) + 1;
     }
 };

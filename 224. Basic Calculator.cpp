@@ -1,100 +1,58 @@
+//利用sign存加减号，利用ans存之前的结果
+//出现括号的时候用栈保存之前的结果
 class Solution {
 public:
-    typedef pair<int, int> P;
-    int calculate(string s)
+    int calculate(string s) 
     {
-        stack<P> st1, st2;
+        stack<int> st;
+        int ans = 0;
+        int sign = 1;
         int len = s.size();
         int i = 0;
-        while (i < len)
+        while(i < len)
         {
-            if (s[i] == ' ')
+            if(isdigit(s[i]))
             {
-                i++;
-                continue;
-            }
-            if (s[i] >= '0' && s[i] <= '9')
-            {
-                int j = i;
-                while (j < len && s[j] >= '0' && s[j] <= '9')
-                    j++;
-                st2.push(P(atoi(s.substr(i, j - i).c_str()), 0));
-                i = j;
-                continue;
-            }
-            if (s[i] == ')')
-            {
-                P t = st1.top();
-                while (!st1.empty() && t.first != '(')
+                int now = 0;
+                while(i < len && isdigit(s[i]))
                 {
-                    st2.push(t);
-                    st1.pop();
-                    t = st1.top();
+                    now *= 10;
+                    now += (s[i] - '0');
+                    i++;
                 }
-                st1.pop();
+                ans += sign * now;
+            }
+            else if(s[i] == '+')
+            {
+                sign = 1;
                 i++;
             }
-            else if (s[i] == '(' || st1.empty() || st1.top().first == '(')
+            else if(s[i] == '-')
             {
-                st1.push(P(s[i], 1));
-                i++;
-                continue;
-            }
-            else if ((s[i] == '*' || s[i] == '/') && (st1.top().first == '+' || st1.top().first == '-'))
-            {
-                st1.push(P(s[i], 1));
+                sign = -1;
                 i++;
             }
-            else if (s[i] == '*' || s[i] == '/' || s[i] == '+' || s[i] == '-')
+            else if(s[i] == '(')
             {
-                st2.push(st1.top());
-                st1.pop();
+                st.push(ans);
+                st.push(sign);
+                ans = 0;
+                sign = 1;
+                i++;
             }
-
-        }
-        while (!st2.empty())
-        {
-            st1.push(st2.top());
-            st2.pop();
-        }
-
-        //calculate
-
-        while (!st1.empty())
-        {
-            P p = st1.top();
-            st1.pop();
-            if (p.second == 0)
+            else if(s[i] == ')')
             {
-                st2.push(p);
+                int ts = st.top();
+                st.pop();
+                int ta = st.top();
+                st.pop();
+                ans = ans * ts + ta;
+                i++;
             }
             else
-            {
-                char op = p.first;
-                int aop = st2.top().first;
-                st2.pop();
-                int bop = st2.top().first;
-                st2.pop();
-                int res;
-                switch (op)
-                {
-                case '+':
-                    res = bop + aop;
-                    break;
-                case '-':
-                    res = bop - aop;
-                    break;
-                case '*':
-                    res = bop * aop;
-                    break;
-                case '/':
-                    res = bop / aop;
-                    break;
-                }
-                st2.push(P(res, 0));
-            }
+                i++;
         }
-
-        return st2.top().first;
+        return ans;
+        
     }
 };

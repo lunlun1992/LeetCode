@@ -1,65 +1,71 @@
-//Trie树+DFS。注意加一个记忆数组就行。
-class TrieNode{
+//记忆化DFS
+class Trie
+{
 public:
-    bool is_end;
-    vector<TrieNode*> children;
-    TrieNode(){
-        is_end=false;
-        children=vector<TrieNode*>(26, NULL);
-    }   
+    Trie *next[26];
+    bool isend;
+    Trie()
+    {
+        isend = false;
+        memset(next, 0, sizeof(next));
+    }
 };
 
-class Trie{
+class Solution
+{
 public:
-    TrieNode* getRoot(){return root;}
-    Trie(vector<string>& words){
-        root=new TrieNode();
-        for(int i=0; i<words.size(); ++i)
-            addWord(words[i]);
-    }
-    void addWord(const string& word){
-        TrieNode* cur=root;
-        for(int i=0; i<word.size(); ++i){
-            int index=word[i]-'a';
-            if(cur->children[index]==NULL)   
-               cur->children[index]=new TrieNode();
-            cur=cur->children[index];    
+    void dfs(int i, int j, vector<vector<char>>& board, Trie *node, vector<string>& ret, vector<string>& words, vector<vector<char>>& hash, string now)
+    {
+        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || node->next[board[i][j] - 'a'] == NULL || hash[i][j] == 0)
+            return;
+        node = node->next[board[i][j] - 'a'];
+        now += board[i][j];
+        if(node->isend && !used.count(now))
+        {
+            ret.push_back(now);
+            used.insert(now);
         }
-        cur->is_end=true;
+        hash[i][j] = 0;
+        dfs(i + 1, j, board, node, ret, words, hash, now);
+        dfs(i - 1, j, board, node, ret, words, hash, now);
+        dfs(i, j + 1, board, node, ret, words, hash, now);
+        dfs(i, j - 1, board, node, ret, words, hash, now);
+        hash[i][j] = board[i][j];
+    }
+
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words)
+    {
+        vector<string> ret;
+        int row = board.size();
+        int col = board[0].size();
+        int len = words.size();
+        Trie *root = new Trie();
+        for(int i = 0; i < len; i++)
+        {
+            Trie *node = root;
+            for(int j = 0; j < words[i].size(); j++)
+            {
+                if(node->next[words[i][j] - 'a'])
+                {
+                    node = node->next[words[i][j] - 'a'];
+                }
+                else
+                {
+                    Trie *temp = new Trie();
+                    node->next[words[i][j] - 'a']= temp;
+                    node = temp;
+                }
+                
+            }
+            node->isend = true;
+        }
+    
+        vector<vector<char>> hash(board);
+        for(int i = 0; i < row; i++)
+            for(int j = 0; j < col; j++)
+                dfs(i, j, board, root, ret, words, hash, "");
+        return ret;
     }
 private:
-    TrieNode* root;
-};
-
-class Solution {
-public:
-    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
-        Trie* trie = new Trie(words);
-        TrieNode* root=trie->getRoot();
-        set<string> result_set;
-        for(int x=0; x<board.size(); ++x)
-            for(int y=0; y<board[0].size(); ++y)
-                findWords(board, x, y, root, "", result_set);
-
-        vector<string> result;
-        for(auto it:result_set)    result.push_back(it);
-        return result;        
-    }
-private:
-    void findWords(vector<vector<char>>& board, int x, int y, TrieNode* root, string word, set<string>& result){
-        if(x<0||x>=board.size()||y<0||y>=board[0].size() || board[x][y]==' ') return;
-
-        if(root->children[board[x][y]-'a'] != NULL){
-            word=word+board[x][y];
-            root=root->children[board[x][y]-'a']; 
-            if(root->is_end) result.insert(word);
-            char c=board[x][y];
-            board[x][y]=' ';
-            findWords(board, x+1, y, root, word, result);
-            findWords(board, x-1, y, root, word, result);
-            findWords(board, x, y+1, root, word, result);
-            findWords(board, x, y-1, root, word, result);
-            board[x][y]=c;        
-        }
-    }
+    unordered_set<string> used;
 };

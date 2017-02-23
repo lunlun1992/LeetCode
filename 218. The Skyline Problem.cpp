@@ -1,4 +1,4 @@
-// good solution, i rewrite it in c++, just for those don't know java 
+//扫描线法，每次更新multiset，最高的高度是其begin，如果跟上次的高度不一样，说明是skyline，如果一样，说明被遮住了
 bool mycomparison(pair<int, int> &p1, pair<int, int> &p2)
 {
     if(p1.first != p2.first)

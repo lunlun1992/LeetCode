@@ -1,38 +1,32 @@
-//教科书上的回溯法，简单应用，还可以优化。
-public class Solution
-{
-    static ArrayList<List<Integer>> list;
-    static ArrayList<Integer> arr;
-    static void dfs(int num, int n, int k)
+class Solution {
+public:
+    void dfs(int b, int k, int n)
     {
-        if(k == 0)
+        if(n < 0)
+            return;
+        else if(n == 0)
         {
-            if(n == 0)
-            {
-                ArrayList<Integer> arr1 = new ArrayList<Integer>();
-                arr1.addAll(arr);
-                list.add(arr1);
-            }
+            if(k == 0)
+                ret.push_back(now);
             return;
         }
-       
-        for(int i = num; i <= 9; i++)
+        else if(k == 0)
+            return;
+        
+        //n > 0 && k > 0
+        for(int i = b; i <= 9; i++)
         {
-            if(n - i >= 0)
-            {
-                arr.add(i);
-                dfs(i + 1, n - i, k - 1);
-                arr.remove(arr.size() - 1);
-            }
+            now.push_back(i);
+            dfs(i + 1, k - 1, n - i);
+            now.pop_back();
         }
     }
-    public List<List<Integer>> combinationSum3(int k, int n)
+    vector<vector<int>> combinationSum3(int k, int n)
     {
-        list = new ArrayList<List<Integer>>();
-        if(k == 0)
-            return list;
-        arr = new ArrayList<Integer>();
-        dfs(1, n, k);
-        return list;
+        dfs(1, k, n);
+        return ret;
     }
-}
+private:
+    vector<vector<int>> ret;
+    vector<int> now;
+};
