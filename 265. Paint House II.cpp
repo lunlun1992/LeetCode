@@ -1,3 +1,4 @@
+//只需要得到上一次最小的两个值，原因是不能涂一样的颜色
 class Solution {
 public:
     int minCostII(vector<vector<int>>& costs) 

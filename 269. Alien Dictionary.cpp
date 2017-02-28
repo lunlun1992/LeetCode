@@ -4,12 +4,17 @@ class Solution {
 public:
     string alienOrder(vector<string>& words) 
     {
-        map<char, set<char>> suc, pre;
-        set<char> chars;
+        unordered_map<char, set<char>> suc, pre;
+        unordered_set<char> chars;
         string s;
+        int same = 0;
         for (string t : words)
         {
             chars.insert(t.begin(), t.end());
+            if(s.size() > t.size() && s.substr(0, t.size()) == t)
+                return "";//avoid special test case
+            else if(s == t)
+                same++;
             int lenmin = min(s.size(), t.size());
             for (int i = 0; i < lenmin; i++) 
             {
@@ -24,20 +29,24 @@ public:
             }
             s = t;
         }
-        if(!pre.size())
-            return "";
-        set<char> free = chars;
+        unordered_set<char> free = chars;
+        for(auto p : pre)
+            free.erase(p.first);
+        queue<char> que;
+        for(auto ff : free)
+            que.push(ff);
         string order;
-        while (free.size())//free里面就是所有的0入度点
+        while(!que.empty())//free里面就是所有的0入度点
         {
-            char a = *begin(free);
-            free.erase(a);
+            char a = que.front();
+            //cout << a << endl;
+            que.pop();
             order += a;
             for (char b : suc[a]) 
             {
                 pre[b].erase(a);
                 if (pre[b].empty())
-                    free.insert(b);
+                    que.push(b);
             }
         }
         return order.size() == chars.size() ? order : "";

@@ -1,34 +1,53 @@
 class Solution {
 public:
-    vector<string> generatePalindromes(string s) {
-		vector<string> palindromes;
-        unordered_map<char, int> counts;
-        for (char c : s) counts[c]++;
-        int odd = 0; char mid; string half;
-        for (auto p : counts) {
-            if (p.second & 1) {
-                odd++, mid = p.first;
-				if (odd > 1) return palindromes;
+    vector<string> generatePalindromes(string s)
+    {
+        int len = s.size();
+        int odd = 0;
+        char oddchar = 0;
+        for(int i = 0; i < len; i++)
+            m[s[i]]++;
+        for(auto it : m)
+        {
+            if(it.second % 2)
+            {
+                odd++;
+                oddchar = it.first;
             }
-            half += string(p.second / 2, p.first);
         }
-        palindromes = permutations(half);
-        for (string& p : palindromes) {
-            string t(p);
-            reverse(t.begin(), t.end());
-			if (odd) t = mid + t;
-            p += t;
+        if(!len || odd > 1)
+            return {};
+        if(odd)
+        {
+            now.push_back(oddchar);
+            m[oddchar]--;
+            len--;
         }
-        return palindromes;
+        dfs(len);
+        return ret;
     }
-private: 
-    vector<string> permutations(string& s) {
-        vector<string> perms;
-        string t(s);
-        do {
-            perms.push_back(s);
-            next_permutation(s.begin(), s.end()); 
-        } while (s != t);
-        return perms; 
+private:
+    unordered_map<char, int> m;
+    vector<string> ret;
+    string now;
+    void dfs(int remain)
+    {
+        if(remain == 0)
+        {
+            ret.push_back(now);
+            return;
+        }
+        string now_bak = now;
+        for(auto it : m)
+        {
+            if(it.second)
+            {
+                now = it.first + now + it.first;
+                m[it.first] -= 2;
+                dfs(remain - 2);
+                m[it.first] += 2;
+                now = now_bak;
+            }
+        }
     }
 };

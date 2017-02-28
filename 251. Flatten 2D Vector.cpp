@@ -1,20 +1,34 @@
 class Vector2D {
-    vector<vector<int>>::iterator i, iEnd;
-    int j = 0;
 public:
-    Vector2D(vector<vector<int>>& vec2d) {
-        i = vec2d.begin();
-        iEnd = vec2d.end();
+    Vector2D(vector<vector<int>>& vec2d)
+    {
+        it = vec2d.begin();
+        end = vec2d.end();
+        idx = 0;
     }
 
-    int next() {
-        hasNext();
-        return (*i)[j++];
+    int next() 
+    {
+        return it->at(idx++);
     }
 
-    bool hasNext() {
-        while (i != iEnd && j == (*i).size())
-            i++, j = 0;
-        return i != iEnd;
+    bool hasNext()
+    {
+        while(it != end && idx == it->size()) 
+        {
+            it++;
+            idx = 0;
+        }
+        return it != end;
     }
+private:
+    vector<vector<int>>::iterator it;
+    vector<vector<int>>::iterator end;
+    int idx;
 };
+
+/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D i(vec2d);
+ * while (i.hasNext()) cout << i.next();
+ */

@@ -2,21 +2,24 @@ class Solution {
 public:
     bool validTree(int n, vector<pair<int, int>>& edges) 
     {
-        vector<int> nodes(n,0);
-        for(int i = 0; i < n; i++) 
-            nodes[i] = i;
-        for(int i = 0; i < edges.size(); i++)//证明没有环
+        vector<int> root;
+        for(int i = 0; i < n; i++)
+            root.push_back(i);
+        int len = edges.size();
+        if(len != n - 1)//无环时应该有n-1条边
+            return false;
+        for(int i = 0; i < len; i++)//确定无环的算法
         {
             int f = edges[i].first;
             int s = edges[i].second;
-            while(nodes[f] != f) 
-                f = nodes[f];
-            while(nodes[s] != s)//只有根节点的idx和node[idx]相等 
-                s = nodes[s];
-            if(nodes[f] == nodes[s])
+            while(root[f] != f)
+                f = root[f];
+            while(root[s] != s)
+                s = root[s];
+            if(s == f)
                 return false;
-            nodes[s] = f;
+            root[s] = f;
         }
-        return edges.size() == n - 1;//没有环时，证明全连接
+        return true;
     }
 };
