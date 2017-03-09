@@ -1,3 +1,5 @@
+//二分法寻找合适的点
+//
 class Solution {
 public:
     int hIndex(vector<int>& citations) 
