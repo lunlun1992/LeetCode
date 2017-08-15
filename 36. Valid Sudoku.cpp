@@ -1,14 +1,10 @@
 //分行列以及小格子分别设置一个hash表，判定数字是否重复。
 class Solution {
 public:
-    bool isValidSudoku(vector<vector<char>>& board) 
-    {
-        for(int i = 0; i < 9; i++)
-        {
-            for(int j = 0; j < 9; j++)
-            {
-                if(board[i][j] == '.')
-                    continue;
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if(board[i][j] == '.') continue;
                 if(digits[0][i][board[i][j] - '0'])
                     return false;
                 else

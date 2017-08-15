@@ -14,27 +14,21 @@ public:
         int wordlen = words[0].size();
         int slen = s.size();
         int wc = words.size();
-        for(int k = 0; k < wordlen; k++)
-        {
+        for(int k = 0; k < wordlen; k++) {
             unordered_map<string, int> dict;
             int start = k;
             int count = 0;
             for(int i = k; i + wordlen <= slen; i += wordlen)
             {
                 string now = s.substr(i, wordlen);
-                if(d.count(now))
-                {
-                    if(dict[now] < d[now])
-                    {
+                if(d.count(now)) {
+                    if(dict[now] < d[now]) {
                         dict[now]++;
                         count++;
-                    }
-                    else
-                    {
+                    } else {
                         dict[now]++;
                         count++;
-                        while(dict[now] > d[now])
-                        {
+                        while(dict[now] > d[now]) {
                             string tore = s.substr(start, wordlen);
                             start += wordlen;
                             dict[tore]--;
@@ -49,9 +43,7 @@ public:
                         dict[s.substr(start, wordlen)]--;
                         start += wordlen;
                     }
-                }
-                else
-                {
+                } else {
                     start = i + wordlen;
                     count = 0;
                     dict.clear();

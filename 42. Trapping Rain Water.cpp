@@ -5,29 +5,22 @@
 //直到两个指针相遇。
 class Solution {
 public:
-    int trap(vector<int>& height)
-    {
-        if(height.empty())
-            return 0;
-        int len = height.size();
-        
+    int trap(vector<int>& height) {
+        if(height.empty()) return 0;
+        int len = height.size();  
         int s = 0;
         int e = len - 1;
         int maxs = 0;
         int maxe = 0;
         int ret = 0;
-        while(s < e)
-        {
-            if(height[s] < height[e])
-            {
+        while(s < e) {
+            if(height[s] < height[e]) {
                 if(height[s] > maxs)
                     maxs = height[s];
                 else
                     ret += maxs - height[s];
                 s++;
-            }
-            else
-            {
+            } else {
                 if(height[e] > maxe)
                     maxe = height[e];
                 else
@@ -35,8 +28,6 @@ public:
                 e--;
             }
         }
-        
         return ret;
-        
     }
 };

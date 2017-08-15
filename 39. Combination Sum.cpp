@@ -3,31 +3,25 @@
 //这样可以遍历整棵树
 class Solution {
 public:
-
-    void dfs(vector<int>& nums, int idx, int t)
-    {
-        if(t == 0)
-        {
+    
+    void dfs(vector<int>& can, int idx, int t, vector<int>& now, vector<vector<int>>& ret) {
+        if (!t) {
             ret.push_back(now);
             return;
-        }
-        else if(t < 0 || idx == nums.size())
+        } else if(t < 0) {
             return;
-        
-        now.push_back(nums[idx]);
-        dfs(nums, idx, t - nums[idx]);
-        now.pop_back();
-        
-        dfs(nums, idx + 1, t);
-        
-    }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target)
-    {
-        dfs(candidates, 0, target);
-        return ret;
+        }
+        for(int i = idx; i < can.size(); i++) {
+            now.push_back(can[i]);
+            dfs(can, i, t - can[i], now, ret);
+            now.pop_back();
+        }
     }
     
-private:
-    vector<vector<int>> ret;
-    vector<int> now;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ret;
+        vector<int> now;
+        dfs(candidates, 0, target, now, ret);
+        return ret;
+    }
 };

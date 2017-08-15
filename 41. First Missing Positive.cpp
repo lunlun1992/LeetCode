@@ -4,31 +4,13 @@
 //2. 要交换的两个数字相等
 class Solution {
 public:
-    int firstMissingPositive(vector<int>& nums) 
-    {
-        if(nums.empty())
-            return 1;
+    int firstMissingPositive(vector<int>& nums) {
         int len = nums.size();
-        int idx = 0;
-        while(idx < len)
-        {
-            if(idx + 1 != nums[idx])
-            {
-                if(nums[idx] > len || nums[idx] < 1 || nums[idx] == nums[nums[idx] - 1])
-                    idx++;
-                else
-                {
-                    int temp = nums[idx];
-                    nums[idx] = nums[nums[idx] - 1];
-                    nums[temp - 1] = temp;
-                }
-            }
-            else
-                idx++;
-        }
-        
         for(int i = 0; i < len; i++)
-            if(i + 1 != nums[i])
+            while(nums[i] > 0 && nums[i] <= len && nums[nums[i] - 1] != nums[i])
+                swap(nums[i], nums[nums[i] - 1]);
+        for(int i = 0; i < len; i++)
+            if(nums[i] != i + 1)
                 return i + 1;
         return len + 1;
     }

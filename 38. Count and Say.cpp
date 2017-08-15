@@ -1,37 +1,25 @@
-//就是模拟题
+//simulation
 class Solution {
 public:
-    string countAndSay(int n)
-    {
-        string str = "1";
-        for(int k = 0; k < n - 1; k++)
-        {
+    string countAndSay(int n) {
+        string now = "1";
+        for(int i = 2; i <= n; i++) {
             string next = "";
-            int len = str.size();
-            int i = 0;
-            char now = str[0];
+            int j = 0;
             int count = 0;
-            while(i < len)
-            {
-                if(str[i] == now)
-                {
-                    count++;
-                    i++;
-                }
-                else
-                {
-                    next += (count + '0');
-                    next += now;
+            for (int j = 0; j < now.size(); j++) {
+                if (j > 0 && now[j - 1] != now[j]) {
+                    next.append(to_string(count));
+                    next.push_back(now[j - 1]);
                     count = 1;
-                    now = str[i];
-                    i++;
+                } else {
+                    ++count;
                 }
             }
-            
-            next += (count + '0');
-            next += now;
-            str = next;
+            next.append(to_string(count));
+            next.push_back(now.back());
+            now = next;
         }
-        return str;
+        return now;
     }
 };

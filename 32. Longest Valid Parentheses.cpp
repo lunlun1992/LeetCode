@@ -4,37 +4,29 @@
 
 class Solution {
 public:
-    int longestValidParentheses(string s) 
+    int longestValidParentheses(string s)
     {
+        int ret = 0;
         int len = s.size();
-        for(int i = 0; i < len; i++)
-        {
-            if(s[i] == '(')
-                st.push(i);
-            else
-                if(!st.empty() && s[st.top()] == '(')
-                    st.pop();
-                else
-                    st.push(i);
-        }
-        if(st.empty())
-            return len;
-        else
-        {
-            int ret = INT_MIN;
-            int a = 0;
-            int b = len;
-            while(!st.empty())
-            {
-                a = st.top();
-                ret = max(ret, b - a - 1);
-                b = a;
+        if(len < 2)
+            return 0;
+        stack<int> st;
+        
+        for (int i = 0; i < len; i++) {
+            if (!st.empty() && s[i] == ')' && s[st.top()] == '(') {
                 st.pop();
+            } else {
+                st.push(i);
             }
-            ret = max(ret, b);//最后一个区间千万不要忘记
-            return ret;
         }
+        int a = len;
+        int b = -1;
+        while (!st.empty()) {
+            b = st.top();
+            st.pop();
+            ret = max(ret, a - b - 1);
+            a = b;
+        }
+        return max(ret, a);
     }
-private:
-    stack<int> st;
 };

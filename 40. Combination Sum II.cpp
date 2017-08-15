@@ -5,34 +5,28 @@
 //当不选择本数字，则后面人一个相同的数字都不应该选，否则会产生重复。
 class Solution {
 public:
-    void dfs(vector<int>& nums, int idx, int t)
-    {
-        if(t == 0)
-        {
+    
+    void dfs(vector<int>& can, int idx, int t, vector<int>& now, vector<vector<int>>& ret) {
+        if (!t) {
             ret.push_back(now);
             return;
-        }
-        else if(t < 0 || idx == nums.size())
+        } else if(t < 0) {
             return;
-        
-        now.push_back(nums[idx]);
-        dfs(nums, idx + 1, t - nums[idx]);
-        now.pop_back();
-        
-        int j = idx + 1;
-        while(j < nums.size() && nums[j] == nums[idx])
-            j++;
-        dfs(nums, j, t);
-        
+        }
+        for(int i = idx; i < can.size(); i++) {
+            if (i != idx && can[i] == can[i - 1])
+                continue;
+            now.push_back(can[i]);
+            dfs(can, i + 1, t - can[i], now, ret);
+            now.pop_back();
+        }
     }
-
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
-    {
+    
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>> ret;
+        vector<int> now;
         sort(candidates.begin(), candidates.end());
-        dfs(candidates, 0, target);
+        dfs(candidates, 0, target, now, ret);
         return ret;
     }
-private:
-    vector<vector<int>> ret;
-    vector<int> now;
 };

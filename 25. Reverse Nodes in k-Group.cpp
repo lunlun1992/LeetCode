@@ -7,6 +7,15 @@
  * };
  */
  //插入头部法
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ //插入头部法
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) 
@@ -18,10 +27,9 @@ public:
         ListNode *before = &H;
         ListNode *end = before;
         
-        while(1)
-        {
+        while(true) {
             for(int i = 0; i < k; i++)
-                if(end);
+                if(end)
                     end = end->next;
             if(!end)
                 break;

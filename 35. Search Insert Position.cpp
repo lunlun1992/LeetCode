@@ -1,26 +1,17 @@
-//二分法的应用
+//lower_bound，以后都这么写。
 class Solution {
 public:
-    int searchInsert(vector<int>& nums, int target)
-    {
-        if(nums.empty())
-            return 0;
-        int len = nums.size();
-        int b = 0;
-        int e = len;
-        
-        while(b < e)
-        {
-            int m = b + ((e - b) >> 1);
-            if(nums[m] == target)
-                return m;
-            else if(nums[m] < target)
-                b = m + 1;
-            else
-                e = m;
+    int searchInsert(vector<int>& nums, int target) {
+        int s = 0;
+        int e = nums.size() - 1;
+        while (s <= e) {
+            int m = s + ((e - s) >> 1);
+            if (nums[m] < target) {
+                s = m + 1;
+            } else {
+                e = m - 1;
+            }
         }
-        
-        return e;
-        
+        return s;
     }
 };

@@ -4,18 +4,15 @@
 //
 class Solution {
 public:
-    bool dfs(vector<vector<char>>& board, int idx)
-    {
+    bool dfs(vector<vector<char>>& board, int idx) {
         if(idx == 81)
             return true;
         int row = idx / 9;
         int col = idx % 9;
-        if(board[row][col] == '.')
-        {
-            for(int i = 1; i <= 9; i++)
-            {
+        if (board[row][col] == '.') {
+            for (int i = 1; i <= 9; i++) {
                 int thisone = row / 3 * 3 + col / 3;
-                if(!digits[0][row][i] && !digits[1][col][i] && !digits[2][thisone][i])
+                if (!digits[0][row][i] && !digits[1][col][i] && !digits[2][thisone][i])
                 {
                     digits[0][row][i] = true;
                     digits[1][col][i] = true;
@@ -24,27 +21,21 @@ public:
                     if(dfs(board, idx + 1))
                         return true;
                     board[row][col] = '.';
-                    digits[0][row][i] = false;
+                    digits[2][thisone][i] = false;                                      
                     digits[1][col][i] = false;
-                    digits[2][thisone][i] = false;
+                    digits[0][row][i] = false;
                 }
             }
-        }
-        else
-        {
+        } else {
             if(dfs(board, idx + 1))
                 return true;
         }
         return false;
     }
-    void solveSudoku(vector<vector<char>>& board)
-    {
-        for(int i = 0; i < 9; i++)
-        {
-            for(int j = 0; j < 9; j++)
-            {
-                if(board[i][j] == '.')
-                    continue;
+    void solveSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if(board[i][j] == '.') continue;
                 digits[0][i][board[i][j] - '0'] = true;
                 digits[1][j][board[i][j] - '0'] = true;
                 int idx = i / 3 * 3 + j / 3;

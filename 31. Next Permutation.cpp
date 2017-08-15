@@ -1,17 +1,14 @@
 class Solution {
 public:
 
-    void change(vector<int> &nums, int u, int v)
-    {
-        for(; u < v; u++, v--)
-        {
+    void change(vector<int> &nums, int u, int v) {
+        for(; u < v; u++, v--) {
             int temp = nums[u];
             nums[u] = nums[v];
             nums[v] = temp;
         }
     }
-    void nextPermutation(vector<int>& nums)
-    {
+    void nextPermutation(vector<int>& nums) {
         int len = nums.size();
         if(len < 2)
             return;
@@ -20,8 +17,7 @@ public:
         int j = len - 1;
         while(j > 0 && nums[j] <= nums[j - 1])
             j--;
-        if(j == 0)
-        {
+        if(j == 0) {
             change(nums, 0, len - 1);
             return;
         }
@@ -30,13 +26,10 @@ public:
         int val = nums[j - 1];
         int mini = INT_MAX;
         int idx = 0;
-        for(int i = j; i < len; i++)
-        {
-            if(nums[i] > val)
-            {
+        for(int i = j; i < len; i++) {
+            if(nums[i] > val) {
                 int diff = nums[i] - val;
-                if(diff <= mini)
-                {
+                if(diff <= mini) {
                     mini = diff;
                     idx = i;
                 }
