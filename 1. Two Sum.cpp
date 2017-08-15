@@ -3,19 +3,15 @@
 //{}初始化不失为一种好的方法。
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) 
-    {
-        vector<int> ret;
-        int len = nums.size();
-        for(int i = 0; i < len; i++)
-        {
-            int another = target - nums[i];
-            if(s.count(another))
-                return {s[another], i};
-            s[nums[i]] = i;
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> m;
+        for(int i = 0; i < nums.size(); i++) {
+            if (m.count(target - nums[i])) {
+                return {m[target - nums[i]], i};
+            } else {
+                m[nums[i]] = i;
+            }
         }
-        return ret;
+        return {};
     }
-private:
-    unordered_map<int, int> s;
 };

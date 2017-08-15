@@ -4,41 +4,25 @@
 //4.考虑溢出的跳出
 class Solution {
 public:
-    int myAtoi(string str)
-    {
+    int myAtoi(string str) {
+        str.erase(0, str.find_first_not_of(" "));  
+        str.erase(str.find_last_not_of(" ") + 1); 
         if(str.empty())
             return 0;
-        str.erase(0, str.find_first_not_of(" "));
-        str.erase(str.find_last_not_of(" ") + 1);
+        bool isnaga = (str[0] == '-');
+        int startidx = (str[0] == '+' || str[0] == '-') ? 1 : 0;
         int len = str.size();
-        int64_t ans = 0;
-        bool isnaga = false;
-        int startpos = 0;
-        if(str[0] == '+')
-            startpos = 1;
-        if(str[0] == '-')
-        {
-            isnaga = true;
-            startpos = 1;
+        int64_t num = 0;
+        while(startidx < len && num <= 2147483648) {
+            if(str[startidx] < '0' || str[startidx] > '9') break;
+            num *= 10;
+            num += str[startidx++] - '0';
         }
-        for(int i = startpos; i < len; i++)
-        {
-            if(!isdigit(str[i]))
-                break;
-            ans *= 10;
-            ans += (str[i] - '0');
-            if(isnaga && ans > 2147483648)
-            {
-                ans = INT_MIN;
-                break;
-            }
-            if(!isnaga && ans > 2147483647)
-            {
-                ans = INT_MAX;
-                break;
-            }
-                
-        }
-        return (int)(isnaga ? -ans : ans);
+        if(num > 2147483648)
+            return isnaga ? INT_MIN : INT_MAX;
+        else if(num > 2147483647)
+            return isnaga ? -(int)num : INT_MAX;
+        else
+            return isnaga ? -(int)num : (int)num;
     }
 };

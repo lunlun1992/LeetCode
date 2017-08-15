@@ -20,7 +20,6 @@ public:
         string &ret = strs[0];
         for(int i = 1; i < numRows; i++)
             ret += strs[i];
-        return ret;
-        
+        return ret;   
     }
 };

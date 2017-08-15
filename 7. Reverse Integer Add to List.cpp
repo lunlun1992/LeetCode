@@ -1,22 +1,15 @@
-//都是陷阱
-//首先确保都是正的，然后64位，这样不会溢出
+//把整数倒过来即可
 class Solution {
 public:
     int reverse(int x) 
     {
-        bool isnaga = x < 0 ? true : false;
-        int64_t xx = (int64_t)x;
-        xx = xx < 0 ? -xx : xx;
+        int64_t absx = abs((int64_t)x);
         int64_t ret = 0;
-        while(xx)
-        {
+        while(absx) {
             ret *= 10;
-            ret += xx % 10;
-            xx /= 10;
+            ret += (absx % 10);
+            absx /= 10;
         }
-        if(ret > 0x7fffffff)
-            return 0;
-        else
-            return isnaga ? -ret : ret;
+        return x < 0 ? (-ret < INT_MIN ? 0 : -ret) : (ret > INT_MAX ? 0 : ret);
     }
 };
