@@ -1,31 +1,27 @@
-//简单的递归
+//DFS
 class Solution {
 public:
-const string tele[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}; 
-    void dfs(string &digits, int first, string last, vector<string> &ret)
-    {
-        int len = digits.size();
-        if(first == len)
-        {
-            ret.push_back(last);
+    const string tele[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    void dfs(string digits, int idx, vector<string>& ret, string& now) {
+        if(idx == digits.size()) {
+            ret.push_back(now);
             return;
         }
-        int num = digits[first] - '0';
-        for(int i = 0; i < tele[num].size(); i++)
-        {
-            last += tele[num][i];
-            dfs(digits, first + 1, last, ret);
-            last.pop_back();
+        int di = digits[idx] - '0';
+        for (int i = 0; i < tele[di].size(); i++) {
+            now.push_back(tele[di][i]);
+            dfs(digits, idx + 1, ret, now);
+            now.pop_back();
         }
     }
     
-    vector<string> letterCombinations(string digits) 
-    {
+    vector<string> letterCombinations(string digits) {
         vector<string> ret;
-        if(digits.empty())
-            return ret;
-        string last = "";
-        dfs(digits, 0, last, ret);
+        if (digits.empty())
+            return {};
+        string now = "";
+        dfs(digits, 0, ret, now);
         return ret;
     }
 };

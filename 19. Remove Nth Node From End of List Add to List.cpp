@@ -10,30 +10,20 @@
  //删除节点的时候需要一个辅助节点。
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) 
-    {
-        if(head == NULL)
-            return NULL;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
         ListNode H(0);
         H.next = head;
-        
-        ListNode *fast = head;
-        ListNode *slow = head;
-        ListNode *beforeslow = &H;
-        while(n--)
-        {
+        ListNode *fast = &H;
+        ListNode *slow = &H;
+        while(n) {
             fast = fast->next;
+            --n;
         }
-        while(fast != NULL)
-        {
+        while (fast->next) {
             fast = fast->next;
             slow = slow->next;
-            beforeslow = beforeslow->next;
         }
-        
-        beforeslow->next = beforeslow->next->next;
-        
-        
+        slow->next = slow->next->next;
         return H.next;
     }
 };

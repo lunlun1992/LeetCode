@@ -3,42 +3,31 @@
 //在找的同时记得去重。
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums)
-    {
+    vector<vector<int>> threeSum(vector<int>& nums) {
         int len = nums.size();
         int target = 0;
         vector<vector<int>> ret;
         sort(nums.begin(), nums.end());
-        for(int i = 0; i < len; i++)
-        {
+        for(int i = 0; i < len - 2; i++) {
             if(i != 0 && target == -nums[i])
                 continue;
-            target = -nums[i];
-            
+            target = -nums[i];         
             int b = i + 1;
             int e = len - 1;
-            while(b < e)
-            {
-                int sum = nums[b] + nums[e];
-                if(sum < target)
-                    b++;
-                else if(sum > target)
-                    e--;
-                else
-                {
+            while (b < e) {
+                if(nums[b] + nums[e] == target) {
                     ret.push_back({nums[i], nums[b], nums[e]});
-                    
                     int ori = nums[b];
-                    while(b < e && ori == nums[b])
-                        b++;
+                    while (b < e && nums[b] == ori) b++;
                     ori = nums[e];
-                    while(b < e && ori == nums[e])
-                        e--;
+                    while (b < e && nums[e] == ori) e--;
+                } else if(nums[b] + nums[e] < target) {
+                    b++;
+                } else {
+                    e--;
                 }
             }
         }
-        
-        return ret;
-        
+        return ret;   
     }
 };

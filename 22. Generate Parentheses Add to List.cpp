@@ -1,41 +1,29 @@
-//递归搜索
+//DFS, every tree node has two numbers
+//left num and right num
+//indicates the left parenthese num and right parenthese num.
 class Solution {
-public:
-    void dfs(int n, int now, int left, string &last, vector<string> &ret)
-    {
-        if(left < 0 || left > n)
+public:    
+    void dfs(int n, int l, int r, vector<string>& ret, string now) {
+        if (l == n && r == n) {
+            ret.push_back(now);
             return;
-        if(left == 0 && now == n * 2)
-        {
-            ret.push_back(last);
+        } else if(l > n || r > l) {
             return;
         }
-        else if(left && now == n * 2)
-        {
-            return;
-        }
-        now++; 
         
-        last += '(';
-        left++;
-        dfs(n, now, left, last, ret);
-        last.pop_back();
-        left--;
+        now.push_back('(');
+        dfs(n, l + 1, r, ret, now);
+        now.pop_back();
         
-        last += ')';
-        left--;
-        dfs(n, now, left, last, ret);
-        last.pop_back();
-        left++;
-        
-        now--;
+        now.push_back(')');
+        dfs(n, l, r + 1, ret, now);
+        now.pop_back();
     }
-    vector<string> generateParenthesis(int n) 
-    {
+    
+    vector<string> generateParenthesis(int n) {
         vector<string> ret;
-        string last = "";
-        dfs(n, 0, 0, last, ret);
+        string now = "";
+        dfs(n, 0, 0, ret, now);
         return ret;
-        
     }
 };
