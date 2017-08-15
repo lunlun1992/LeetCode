@@ -1,5 +1,6 @@
-//分两步，前进以及收缩
-//收缩步骤为了最小的窗口，前进步骤为了满足条件。
+//最小值的话，一定要在收缩的时候拿到
+//这里收缩之后，会多收缩一个位置，所以要加一。
+//模板就是这样。
 class Solution {
 public:
     string minWindow(string s, string t) 
@@ -7,34 +8,23 @@ public:
         int lent = t.size();
         int lens = s.size();
         int hash[256] = {0};
-        for(auto c : t)
-            hash[(int)c]++;
-            
         int b = 0;
         int count = lent;
         int e = 0;
         int optpos = -1;
         int optlen = INT_MAX;
-        
-        while(e < lens)
-        {
-            hash[s[e]]--;
-            if(hash[s[e]] >= 0)//forward
-                count--;
-            e++;
-            
-            while(count == 0)//shrink
-            {
-                if(optlen > e - b)
-                {
-                    optlen = e - b;
-                    optpos = b;
-                }
-                
-                hash[s[b]]++;
-                if(hash[s[b]] > 0)
-                    count++;
-                b++;
+        for(auto c : t)
+            hash[c]++;       
+        while (e < lens) {     
+            while (e < lens && count > 0)
+                if (hash[s[e++]]-- > 0)
+                    --count;
+            while (b < e && count == 0)
+                if (hash[s[b++]]++ == 0)
+                    ++count;
+            if(optlen > e - b + 1) {
+                optlen = e - b + 1;
+                optpos = b - 1;
             }
         }
         return optpos == -1 ? "" : s.substr(optpos, optlen);

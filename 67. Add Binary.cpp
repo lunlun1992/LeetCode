@@ -12,8 +12,7 @@ public:
         int adder = 0;
         string ret = "";
         
-        while(i >= 0 || j >= 0 || adder == 1)
-        {
+        while(i >= 0 || j >= 0 || adder) {
             adder += i >= 0 ? a[i--] - '0' : 0;
             adder += j >= 0 ? b[j--] - '0' : 0;
             ret = (char)(adder % 2 + '0') + ret;

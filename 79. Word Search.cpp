@@ -1,4 +1,3 @@
-//网格搜索的题目，十分常见。
 class Solution {
 public:
     bool dfs(int x, int y, int row, int col, vector<vector<char>>& board, string word, int wl, int depth, vector<vector<bool>>& visit)

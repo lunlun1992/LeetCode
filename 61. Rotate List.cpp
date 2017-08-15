@@ -16,8 +16,7 @@ public:
             return NULL;
         int len = 0;
         ListNode *aa = head;
-        while(aa)
-        {
+        while(aa) {
             len++;
             aa = aa->next;
         }
@@ -30,14 +29,12 @@ public:
         h->next = head;
         for(int i = 0; i < k; i++)
             fast = fast->next;
-        while(fast->next != NULL)
-        {
+        while(fast->next) {
             slow = slow->next;
             fast = fast->next;
         }
         ListNode *node = slow->next;
-        for(int i = 0; i < k; i++)
-        {
+        for(int i = 0; i < k; i++) {
             slow->next = node->next;
             node->next = h->next;
             h->next = node;

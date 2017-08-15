@@ -1,70 +1,25 @@
-//模拟题，注意最后一行的特殊性以及空格的分配
 class Solution {
 public:
-    vector<string> fullJustify(vector<string>& words, int maxWidth) 
+    vector<string> fullJustify(vector<string> &words, int L) 
     {
-        vector<string> ret;
-        int len = words.size();
-        int i = 0;
-        while(i < len)
+        vector<string> res;
+        for(int i = 0, k, l; i < words.size(); i += k) 
         {
-            int totallen = words[i].size();
-            int b = i;
-            i++;
-            while(i < len && maxWidth >= totallen + words[i].size() + 1)
+            for(k = 0, l = 0; i + k < words.size() && l + words[i + k].size() <= L - k; k++)
             {
-                totallen += words[i].size() + 1;
-                i++;
+                l += words[i + k].size();
             }
-            int e = i - 1;
-            int spacecount = e - b;
-            
-            if(b == e)
+            string tmp = words[i];
+            for(int j = 0; j < k - 1; j++) 
             {
-                string now(maxWidth, ' ');
-                now.replace(0, words[b].size(), words[b]);
-                ret.push_back(now);
+                if(i + k >= words.size()) 
+                    tmp += " ";
+                else tmp += string((L - l) / (k - 1) + (j < (L - l) % (k - 1)), ' ');
+                tmp += words[i + j + 1];
             }
-            else if(i == len)
-            {
-                string aa = words[b];
-                for(int j = b + 1; j <= e; j++)
-                {
-                    aa += " ";
-                    aa += words[j];
-                }
-                string space(maxWidth - totallen, ' ');
-                aa += space;
-                ret.push_back(aa);
-            }
-            else
-            {
-                int remain = maxWidth - totallen + spacecount;
-                int left = remain / spacecount;
-                string aa = words[b];
-                
-                cout << remain << " " << left << endl;
-                
-                for(int j = b + 1; j <= e; j++)
-                {
-                    if((remain % (e - j + 1)) == 0)
-                    {
-                        string space(left, ' ');
-                        aa += space;
-                        remain -= left;
-                    }
-                    else
-                    {
-                        string space(left + 1, ' ');
-                        aa += space;
-                        remain -= (left + 1);
-                    }
-                    aa += words[j];
-                }
-                ret.push_back(aa);
-            }
-            
+            tmp += string(L - tmp.size(), ' ');
+            res.push_back(tmp);
         }
-        return ret;
+        return res;
     }
 };

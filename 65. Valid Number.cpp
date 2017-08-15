@@ -12,35 +12,25 @@ public:
         bool Eseen = false;
         bool numberafterE = true;
         bool pointseen = false;
-        for(int i = 0; i < len; i++)
-        {
-            if(isdigit(s[i]))
-            {
+        for(int i = 0; i < len; i++) {
+            if(isdigit(s[i])) {
                 digitseen = true;
                 numberafterE = true;
-            }
-            else if(s[i] == 'e')
-            {
-                
+            } else if(s[i] == 'e') {         
                 if(!digitseen || Eseen)
                     return false;
                 numberafterE = false;
                 Eseen = true;
-            }
-            else if(s[i] == '.')
-            {
+            } else if(s[i] == '.') {
                 if(Eseen || pointseen)
                     return false;
                 pointseen = true;
-            }
-            else if(s[i] == '-' || s[i] == '+')
-            {
+            } else if(s[i] == '-' || s[i] == '+') {
                 if(i != 0 && s[i - 1] != 'e')
                     return false;
-            }
-            else 
+            } else { 
                 return false;
-            
+            }
         }
         return numberafterE && digitseen;
     }
