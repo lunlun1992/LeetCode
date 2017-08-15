@@ -3,30 +3,18 @@
 //然后是n<0时变成正数来算，最后再加回去。
 class Solution {
 public:
-    double myPow(double x, int n) 
-    {
-        int64_t nn = (int64_t)n;
-        bool nega = false;
-        if(n == 0 || x == 1)
-            return 1;
-        else if(x == 0)
-            return 0;
-        else if(n < 0)
-        {
-            nega = true;
-            nn = -nn;
-        }
-        
-        //n > 0, x != 0
-        double mul = x;
+    double myPow(double x, int n) {
         double ret = 1;
-        while(nn)
-        {
-            if(nn & 1)
-                ret *= mul;
+        double multi = x;
+        bool isnega = n < 0;
+        int64_t nn = n;
+        nn = abs(nn);
+        while (nn) {
+            int bit = nn & 1;
+            ret *= bit ? multi : 1;
+            multi *= multi;
             nn >>= 1;
-            mul *= mul;
         }
-        return nega ? 1 / ret : ret;
+        return isnega ? 1 / ret : ret;
     }
 };

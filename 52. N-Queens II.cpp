@@ -1,16 +1,13 @@
 //和上一题一样的思路，不赘述
 class Solution {
 public:
-    void dfs(int row, int col, int n, vector<bool> &flag_col, vector<bool> &flag_45, vector<bool> &flag_135)
-    {
+    void dfs(int row, int col, int n, vector<bool> &flag_col, vector<bool> &flag_45, vector<bool> &flag_135) {
         int nextrow = row + 1;
-        if(nextrow == n)
-        {
+        if(nextrow == n) {
             ret++;
             return;
         }
-        for(int j = 0; j < n; j++)
-        {
+        for(int j = 0; j < n; j++) {
             if(flag_col[j] && flag_45[nextrow + j] && flag_135[n - 1 + j - nextrow])
             {
                 flag_col[j] = false;
@@ -26,13 +23,11 @@ public:
         }
     }
 
-    int totalNQueens(int n) 
-    {
+    int totalNQueens(int n) {
         vector<bool> flag_col(n, true);
         vector<bool> flag_45(2 * n - 1, true);
         vector<bool> flag_135(2 * n - 1, true);
-        for(int j = 0; j < n; j++)
-        {
+        for(int j = 0; j < n; j++) {
             flag_col[j] = false;
             flag_45[0 + j] = false;
             flag_135[n - 1 + j - 0] = false;

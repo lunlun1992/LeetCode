@@ -13,29 +13,32 @@ public:
         int rb = 0;
         int re = m - 1;
         int cb = 0;
-        int ce = n - 1;
-        
-        while(rb <= re && cb <= ce)
-        {
-            for(int y = cb; y <= ce; y++)
-                ret.push_back(matrix[rb][y]);
+        int ce = n - 1;    
+        while(rb <= re && cb <= ce) {
+            for (int j = cb; j <= ce; j++) {
+                ret.push_back(matrix[rb][j]);
+            }
             rb++;
+            if (rb > re)
+                break;
             
-            for(int x = rb; x <= re; x++)
-                ret.push_back(matrix[x][ce]);
+            for (int i = rb; i <= re; i++) {
+                ret.push_back(matrix[i][ce]);
+            }
             ce--;
-            
-            if(rb > re)//下面这个循环需要这个合法性，否则跳出
+            if (cb > ce)
                 break;
-            for(int y = ce; y >= cb; y--)
-                ret.push_back(matrix[re][y]);
+            
+            for (int j = ce; j >= cb; j--) {
+                ret.push_back(matrix[re][j]);
+            }
             re--;
-            
-            if(cb > ce)//下面这个循环需要这个合法性，否则跳出
+            if (rb > re)
                 break;
             
-            for(int x = re; x >= rb; x--)
-                ret.push_back(matrix[x][cb]);
+            for (int i = re; i >= rb; i--) {
+                ret.push_back(matrix[i][cb]);
+            }
             cb++;
         }
         return ret;

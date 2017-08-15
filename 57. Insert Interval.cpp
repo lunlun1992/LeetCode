@@ -7,47 +7,27 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
-//和上一题的思路大致类似
+//Just like the previous question
 class Solution {
 public:
-    static bool comp(Interval &i1, Interval &i2)
-    {
-        if(i1.start == i2.start)
-            return i1.end > i2.end;
-        else
-            return i1.start < i2.start;
-    }
-    vector<Interval> insert(vector<Interval>& intervals, Interval newInterval)
-    {
+    vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+        int i = 0;
+        int len = intervals.size();
         vector<Interval> ret;
-        int len = intervals.size();    
-        sort(intervals.begin(), intervals.end(), comp);
-        
-        
-        int idx = 0;
-        int b = newInterval.start;
-        int e = newInterval.end;
-        
-        while(idx < len && intervals[idx].end < b)
-        {
-            ret.push_back(intervals[idx]);
-            idx++;
-        }
-        if(idx == len)
-        {
+        while (i < len && intervals[i].end < newInterval.start)
+            ret.push_back(intervals[i++]);
+        if (i == len) {
             ret.push_back(newInterval);
             return ret;
         }
-        
-        b = min(b, intervals[idx].start);
-        while(idx < len && intervals[idx].start <= e)
-        {
-            e = max(e, intervals[idx].end);
-            idx++;
+        int e = newInterval.end;
+        int s = min(intervals[i].start, newInterval.start);
+        while (i < len && e >= intervals[i].start) {
+            e = max(e, intervals[i++].end);
         }
-        ret.push_back(Interval(b, e));
-        while(idx < len)
-            ret.push_back(intervals[idx++]);
+        ret.emplace_back(s, e);
+        while (i < len)
+            ret.push_back(intervals[i++]);
         return ret;
     }
 };

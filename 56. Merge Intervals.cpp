@@ -12,39 +12,25 @@
 //直到找不到为止。
 class Solution {
 public:
-    static bool comp(Interval &i1, Interval &i2)
-    {
-        if(i1.start == i2.start)
-            return i1.end > i2.end;
-        else
-            return i1.start < i2.start;
-    }
-    vector<Interval> merge(vector<Interval>& intervals) 
-    {
-        vector<Interval> ret;
-        int len = intervals.size();    
-        if(!len)
-            return ret;
-        sort(intervals.begin(), intervals.end(), comp);
-        
-        int idx = 0;
-        while(idx < len)
-        {
-            int b = intervals[idx].start;
-            int e = intervals[idx].end;
-            cout << b << " " << e << endl;
-            while(idx < len && intervals[idx].start <= e)
-            {
-                e = max(e, intervals[idx].end);
-                //cout << b << " " << e << endl;
-                idx++;
-            }
-            ret.push_back(Interval(b, e));
-
-        }
-        
-        
-        return ret;
+    
+    static bool sortfunc(Interval& i1, Interval& i2) {
+        return i1.start == i2.start ?
+            i1.end < i2.end : i1.start < i2.start;
     }
     
+    vector<Interval> merge(vector<Interval>& intervals) {
+        int i = 0;
+        int len = intervals.size();
+        sort(intervals.begin(), intervals.end(), sortfunc);
+        vector<Interval> ret;
+        while (i < len) {
+            int e = intervals[i].end;
+            int s = intervals[i].start;
+            while (i < len && e >= intervals[i].start) {
+                e = max(e, intervals[i++].end);
+            }
+            ret.emplace_back(s, e);
+        }
+        return ret;
+    }
 };
