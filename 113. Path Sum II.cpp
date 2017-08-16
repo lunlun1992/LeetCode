@@ -7,42 +7,36 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
     vector<vector<int>> ret;
     vector<int> arr;
-    void travel(TreeNode *node, int sum)
-    {
-        if(NULL == node && sum == 0)
-        {
+    void travel(TreeNode *node, int sum) {
+        if (NULL == node && sum == 0) {
             ret.push_back(arr);
             return;
-        }
-        else if(NULL == node && sum != 0)
+        } else if (NULL == node && sum != 0) {
             return;
+        }
 
-        if(node->left)
-        {
+        if (node->left) {
             arr.push_back(node->val);
             travel(node->left, sum - node->val);
             arr.pop_back();
         }
-        if(node->right)
-        {
+        if (node->right) {
             arr.push_back(node->val);
             travel(node->right, sum - node->val);
             arr.pop_back();
         }
         
-        if(!node->right && !node->left)
-        {
+        if (!node->right && !node->left){
             arr.push_back(node->val);
             travel(node->left, sum - node->val);
             arr.pop_back();
         }
     }
-    vector<vector<int>> pathSum(TreeNode* root, int sum) 
-    {
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
         if(!root)
             return ret;
         travel(root, sum);

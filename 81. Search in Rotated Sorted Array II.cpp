@@ -10,28 +10,22 @@ public:
         int b = 0;
         int e = len - 1;
 
-        while(b < e)
-        {
+        while(b < e) {
             int m = b + (e - b) / 2;
-            if(nums[m] == target)
+            if (nums[m] == target)
                 return true;
-            if(nums[m] > nums[e])
-            {
-                if(nums[m] > target && nums[b] <= target)
+            if (nums[m] > nums[e]) {
+                if (nums[m] > target && nums[b] <= target)
                     e = m;
                 else 
                     b = m + 1;
-            }
-            else if(nums[m] < nums[e])
-            {
-                if(nums[m] < target && nums[e] >= target)
+            } else if (nums[m] < nums[e]) {
+                if (nums[m] < target && nums[e] >= target)
                     b = m + 1;
                 else 
                     e = m;
-            }
-            else
-            {
-                e--;
+            } else {
+                e--;            //这里是关键。
             }
               
         }

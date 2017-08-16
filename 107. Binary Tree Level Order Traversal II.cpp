@@ -9,18 +9,15 @@
  */
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) 
-    {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> ret;
         queue<TreeNode *> que;
         if(root)
             que.push(root);
-        while(!que.empty())
-        {
+        while(!que.empty()) {
             int len = que.size();
             vector<int> a;
-            for(int i = 0; i < len; i++)
-            {
+            for(int i = 0; i < len; i++) {
                 TreeNode *node = que.front();
                 que.pop();
                 a.push_back(node->val);

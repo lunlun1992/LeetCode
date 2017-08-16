@@ -1,8 +1,7 @@
-//记忆华搜索
+//记忆化搜索
 class Solution {
 public:
-    int minimumTotal(vector<vector<int>>& triangle) 
-    {
+    int minimumTotal(vector<vector<int>>& triangle) {
         int row = triangle.size();
         if(!row)
             return 0;

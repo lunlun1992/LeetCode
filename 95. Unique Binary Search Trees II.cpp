@@ -13,23 +13,16 @@ public:
     vector<TreeNode*> dfs(int b, int e)
     {
         vector<TreeNode *> ret;
-        if(b > e)
+        if (b > e) {
             ret.push_back(NULL);
-        else if(b == e)
+        } else if (b == e) {
             ret.push_back(new TreeNode(b));
-        else
-        {
-            for(int i = b; i <= e; i++)
-            {
+        } else {
+            for (int i = b; i <= e; i++) {
                 vector<TreeNode *> l = dfs(b, i - 1);
                 vector<TreeNode *> r = dfs(i + 1, e);
-                
-                int llen = l.size();
-                int rlen = r.size();
-                for(int u = 0; u < llen; u++)
-                {
-                    for(int v = 0; v < rlen; v++)
-                    {
+                for (int u = 0; u < l.size(); u++) {
+                    for (int v = 0; v < r.size(); v++) {
                         TreeNode *root = new TreeNode(i);
                         root->left = l[u];
                         root->right = r[v];
@@ -40,8 +33,7 @@ public:
         }
         return ret;
     }
-    vector<TreeNode*> generateTrees(int n)
-    {
+    vector<TreeNode*> generateTrees(int n) {
         vector<TreeNode*> ret;
         if(n == 0)
             return ret;

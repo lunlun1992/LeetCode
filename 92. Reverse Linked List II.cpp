@@ -6,7 +6,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) 
     {
@@ -21,8 +21,7 @@ public:
             h = h->next;
         ListNode *node = h->next->next;
         ListNode *before = h->next;
-        while(len--)
-        {
+        while(len--) {
             before->next = node->next;
             node->next = h->next;
             h->next = node;

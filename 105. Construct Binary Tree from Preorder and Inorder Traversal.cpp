@@ -11,8 +11,7 @@
 class Solution {
 public:
     
-    TreeNode *build(vector<int>& preorder, int ps, int pe, vector<int>& inorder, int is, int ie)
-    {
+    TreeNode *build(vector<int>& preorder, int ps, int pe, vector<int>& inorder, int is, int ie) {
         if(ps > pe)
             return NULL;
         TreeNode *root = new TreeNode(preorder[ps]);
@@ -24,8 +23,7 @@ public:
         return root;
     }
 
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) 
-    {
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         return build(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1);    
     }
 };

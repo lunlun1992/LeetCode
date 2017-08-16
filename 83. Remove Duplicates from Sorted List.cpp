@@ -6,7 +6,8 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-//和上题一样的思路
+//lastnode里面存上一个节点，如果一直等于上一个节点则一直往下，
+//否则，去除之。
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) 
@@ -17,12 +18,10 @@ public:
         ListNode *node = head;
         ListNode *lastnode = head;
         
-        while(node)
-        {
-            if(lastnode->val == node->val)
+        while (node) {
+            if (lastnode->val == node->val) {
                 node = node->next;
-            else
-            {
+            } else {
                 h->next = lastnode;
                 h = lastnode;
                 lastnode = node;
@@ -30,8 +29,7 @@ public:
             }
         }
         
-        if(lastnode)
-        {
+        if (lastnode) {
             h->next = lastnode;
             h = lastnode;
         }

@@ -9,8 +9,7 @@
  */
 class Solution {
 public:
-    int depth(TreeNode *r)
-    {
+    int depth(TreeNode *r) {
         if(!r)
             return 0;
         int left = depth(r->left);
@@ -23,8 +22,7 @@ public:
     }
     
 
-    bool isBalanced(TreeNode* root)
-    {
+    bool isBalanced(TreeNode* root) {
         return depth(root) != -1;    
     }
 };

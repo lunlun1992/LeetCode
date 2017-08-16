@@ -6,11 +6,10 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-//加入一个标志位来限定不能重复
+// h->lastnode->node
 class Solution {
 public:
-    ListNode* deleteDuplicates(ListNode* head)
-    {
+    ListNode* deleteDuplicates(ListNode* head) {
         if(!head)
             return NULL;
         ListNode H(0);
@@ -20,28 +19,22 @@ public:
         ListNode *lastnode = head;
         bool firstnode = true;
         
-        while(node)
-        {
-            if(lastnode->val == node->val)
-            {
+        while(node) {
+            if (lastnode->val == node->val) {
                 firstnode = false;
-            }
-            else if(firstnode)
-            {
+            } else if (firstnode) {
                 h->next = lastnode;
                 h = lastnode;
                 lastnode = node;
                 firstnode = true;
-            }
-            else
-            {
+            } else {
                 firstnode = true;
                 lastnode = node;
             }
             node = node->next;
         }
-        if(firstnode)
-        {
+        
+        if (firstnode) {
             h->next = lastnode;
             h = lastnode;
         }

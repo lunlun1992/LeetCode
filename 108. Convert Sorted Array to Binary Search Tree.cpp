@@ -10,8 +10,7 @@
 class Solution {
 public:
 
-    TreeNode *build(vector<int> &nums, int b, int e)
-    {
+    TreeNode *build(vector<int> &nums, int b, int e) {
         if(b > e)
             return NULL;
         int m = b + ((e - b) >> 1);

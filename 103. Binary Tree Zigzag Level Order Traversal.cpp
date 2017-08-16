@@ -10,19 +10,16 @@
 //跟上一题相比加了一个反序
 class Solution {
 public:
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
-    {
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         vector<vector<int>> ret;
         queue<TreeNode *> que;
         if(root)
             que.push(root);
         bool rev = false;
-        while(!que.empty())
-        {
+        while (!que.empty()) {
             int len = que.size();
             vector<int> a;
-            for(int i = 0; i < len; i++)
-            {
+            for(int i = 0; i < len; i++) {
                 TreeNode *node = que.front();
                 que.pop();
                 a.push_back(node->val);
@@ -31,13 +28,14 @@ public:
                 if(node->right)
                     que.push(node->right);
             }
-            if(rev)
+            if(rev) {
                 for(int i = 0, j = a.size() - 1; i < j; i++, j--)
                 {
                     int temp = a[i];
                     a[i] = a[j];
                     a[j] = temp;
                 }
+            }
             ret.push_back(a);
             rev = !rev;
         }

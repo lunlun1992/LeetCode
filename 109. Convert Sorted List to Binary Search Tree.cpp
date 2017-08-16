@@ -15,16 +15,15 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+//快慢指针找中点
 class Solution {
 public:
-    TreeNode* build(ListNode *b, ListNode *e)
-    {
+    TreeNode* build(ListNode *b, ListNode *e) {
         if(b == e)
             return NULL;
         ListNode *slow = b;
         ListNode *fast = b;
-        while(fast != e && fast->next != e)
-        {
+        while(fast != e && fast->next != e) {
             fast = fast->next->next;
             slow = slow->next;
         }
@@ -33,8 +32,7 @@ public:
         r->right = build(slow->next, e);
         return r;
     }
-    TreeNode* sortedListToBST(ListNode* head) 
-    {
+    TreeNode* sortedListToBST(ListNode* head) {
         return build(head, NULL);
     }
 };

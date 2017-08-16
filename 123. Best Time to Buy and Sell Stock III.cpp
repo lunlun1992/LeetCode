@@ -9,24 +9,24 @@ public:
             return 0;
         vector<int> preprofit(len, 0);
         vector<int> postprofit(len, 0);
+        int ret = INT_MIN;
         
-        int curmin = INT_MAX;
-        for(int i = 1; i < len; i++)
-        {
-            curmin = min(curmin, prices[i - 1]);
-            preprofit[i] = max(preprofit[i - 1], prices[i] - curmin);
+        int mini = INT_MAX;
+        for (int i = 1; i < len; i++) {
+            mini = min(mini, prices[i - 1]);
+            preprofit[i] = max(preprofit[i - 1], prices[i] - mini);
         }
         
-        int curmax = 0;
-        for(int i = len - 1; i > 0; i--)
-        {
-            curmax = max(curmax, prices[i]);
-            postprofit[i - 1] = max(postprofit[i], curmax - prices[i - 1]);
+        int maxi = INT_MIN;
+        for (int i = len - 1; i > 0; i--) {
+            maxi = max(maxi, prices[i]);
+            postprofit[i - 1] = max(postprofit[i], maxi - prices[i - 1]);
         }
         
-        int ret = 0;
-        for(int i = 0; i < len; i++)
-            ret = max(ret, postprofit[i] + preprofit[i]);
+        for (int i = 0; i < len; i++) {
+            ret = max(ret, preprofit[i] + postprofit[i]);
+        }
+        
         return ret;
     }
 };

@@ -8,13 +8,13 @@
  */
 class Solution {
 public:
-    void connect(TreeLinkNode *root) 
-    {
-        if(!root || !root->left)
+    void connect(TreeLinkNode *root) {
+        if (!root || !root->left)
             return;
         root->left->next = root->right;
-        if(root->next)
+        if (root->next) {
             root->right->next = root->next->left;
+        }
         connect(root->left);
         connect(root->right);
     }

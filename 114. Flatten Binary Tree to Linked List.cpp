@@ -7,22 +7,15 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-//把左子树接到右子树上去
-class Solution {
+ class Solution {
 public:
-    void flatten(TreeNode* root) 
-    {
-        if(NULL == root)
-            return;
+    void flatten(TreeNode* root) {
         TreeNode *node = root;
-        while(node)
-        {
-            TreeNode *n = node->left;
-            if(n)
-            {
-                while(n->right)
-                    n = n->right;
-                n->right = node->right;
+        while (node) {
+            if (node->left) {
+                TreeNode *tmp = node->left;
+                while (tmp->right) tmp = tmp->right;
+                tmp->right = node->right;
                 node->right = node->left;
                 node->left = NULL;
             }

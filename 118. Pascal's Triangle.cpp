@@ -1,13 +1,11 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int numRows) 
-    {
+    vector<vector<int>> generate(int numRows) {
         if(!numRows)
             return {};
         vector<vector<int>> ret;
         ret.push_back({1});
-        for(int i = 1; i < numRows; i++)
-        {
+        for(int i = 1; i < numRows; i++) {
             vector<int> &last = ret[i - 1];
             vector<int> now;
             now.push_back(1);

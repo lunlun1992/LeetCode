@@ -7,11 +7,10 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-//确定范围即可
+//固定子树的值范围。
 class Solution {
 public:
-    bool a(int64_t mini, int64_t maxi, TreeNode *r)
-    {
+    bool help(int64_t mini, int64_t maxi, TreeNode *r) {
         if(!r)
             return true;
         int64_t val = (int64_t)r->val;
@@ -20,9 +19,8 @@ public:
         return a(mini, val, r->left) && a(val, maxi, r->right);
         
     }
-    bool isValidBST(TreeNode* root) 
-    {
-        return a(-2147483650, 2147483648, root);    
+    bool isValidBST(TreeNode* root) {
+        return help(-2147483650, 2147483648, root);    
     }
     
 };
