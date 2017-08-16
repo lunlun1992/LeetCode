@@ -1,40 +1,32 @@
-//hashmap用来判定有没有连续的一段
+//Use hashmap to decrease the time
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) 
-    {
-        int len = nums.size();
-        if(len <= 0)
-            return 0;
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int, bool> st;
         int ret = 0;
-        unordered_map<int, bool> m;
-        for(int i = 0; i < len; i++)
-            m[nums[i]] = false;
-        for(int i = 0; i < len; i++)
-        {
-            if(!m[nums[i]])
-            {
-                m[nums[i]] = true;
+        for (auto n : nums)
+            st[n] = false;
+        for (auto n : nums) {
+            if (!st[n]) {
+                st[n] = true;
                 int cur = 1;
-                int left = nums[i] - 1;
-                while(m.count(left) && !m[left] && left >= INT_MIN)
-                {
-                    m[left] = true;
-                    cur++;
-                    left--;
-                }
-            
-                int right = nums[i] + 1;
-                while(m.count(right) && !m[right] && right <= INT_MAX)
-                {
-                    m[right] = true;
-                    cur++;
-                    right++;
+                int left = n - 1;
+                while (st.count(left) && !st[left]) {
+                    st[left] = true;
+                    ++cur;
+                    --left;
                 }
                 
-                ret = (cur > ret ? cur : ret);
+                int right = n + 1;
+                while (st.count(right) && !st[right]) {
+                    st[right] = true;
+                    ++cur;
+                    ++right;
+                }
+                ret = max(ret, cur);
             }
         }
         return ret;
     }
+        
 };

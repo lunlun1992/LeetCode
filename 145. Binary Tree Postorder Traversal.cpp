@@ -7,36 +7,26 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-//思想和前面的统一起来
 class Solution {
 public:
-    vector<int> postorderTraversal(TreeNode* root)
-    {
+    vector<int> postorderTraversal(TreeNode* root) {
+        stack<TreeNode*> st;
         vector<int> ret;
+        unordered_set<TreeNode*> hasvisit;
         TreeNode *node = root;
-        stack<TreeNode *> st;
-        unordered_set<TreeNode *> hasright;
-        while(node || !st.empty())
-        {
-            if(node)
-            {
+        
+        while (!st.empty() || node) {
+            while (node) {
                 st.push(node);
                 node = node->left;
             }
-            else
-            {
-                node = st.top();
-                if(hasright.count(node))
-                {
-                    ret.push_back(node->val);
-                    st.pop();
-                    node = NULL;
-                }
-                else
-                {
-                    hasright.insert(node);
-                    node = node->right;
-                }
+            TreeNode *tmp = st.top();
+            if (hasvisit.count(st.top())) {
+                ret.push_back(tmp->val);
+                st.pop();
+            } else {
+                hasvisit.insert(tmp);
+                node = tmp->right;
             }
         }
         return ret;

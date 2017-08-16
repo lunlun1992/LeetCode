@@ -2,30 +2,23 @@
 //set的时候也可以touch
 class LRUCache {
 public:
-    LRUCache(int capacity) 
-    {
+    LRUCache(int capacity) {
         capa = capacity;
     }
     
-    int get(int key) 
-    {
-        if(!dict.count(key))
+    int get(int key) {
+        if (!dict.count(key))
             return -1;
         touch(key);
         return dict[key];
     }
     
-    void put(int key, int value) 
-    {
-        if(dict.count(key))
-        {
+    void put(int key, int value) {
+        if (dict.count(key)) {
             touch(key);
             dict[key] = value;
-        }
-        else
-        {
-            if(key_que.size() == capa)
-            {
+        } else {
+            if(key_que.size() == capa) {
                 dict.erase(key_que.back());
                 m.erase(key_que.back());
                 key_que.pop_back();
@@ -42,8 +35,7 @@ private:
     list<int> key_que;
     unordered_map<int, list<int>::iterator> m;
     
-    void touch(int key)
-    {
+    void touch(int key) {
         key_que.erase(m[key]);
         key_que.push_front(key);
         m[key] = key_que.begin();

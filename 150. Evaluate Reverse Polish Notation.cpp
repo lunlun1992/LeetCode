@@ -5,14 +5,10 @@ public:
         if(tokens.empty())
             return 0;
         stack<int> st1;
-        for(int i = 0; i < tokens.size(); i++)
-        {
-            if(isdigit(tokens[i][0]) || tokens[i].size() > 1 && isdigit(tokens[i][1]))
-            {
+        for(int i = 0; i < tokens.size(); i++) {
+            if(isdigit(tokens[i][0]) || tokens[i].size() > 1 && isdigit(tokens[i][1])) {
                 st1.push(atoi(tokens[i].c_str()));
-            }
-            else
-            {
+            } else {
                 int aop = st1.top();
                 st1.pop();
                 int bop = st1.top();

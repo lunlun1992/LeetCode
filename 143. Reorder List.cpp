@@ -9,14 +9,14 @@
 //从中间翻转，然后继续操作之。
 class Solution {
 public:
-    void reorderList(ListNode* head) 
-    {
-        if(!head || !head->next)
+    void reorderList(ListNode* head)  {
+        if (!head || !head->next)
             return;
+        
+        //找到中点
         ListNode *fast = head;
         ListNode *slow = head;
-        while(fast && fast->next)
-        {
+        while (fast && fast->next) {
             fast = fast->next->next;
             slow = slow->next;
         }
@@ -24,10 +24,10 @@ public:
         while(node->next != slow)
             node = node->next;
 
+        //翻转后半部分
         ListNode *second = slow;
         ListNode *back = node;
-        while(second->next)
-        {
+        while (second->next) {
             ListNode *temp = second->next;
             second->next = temp->next;
             temp->next = back->next;
@@ -36,12 +36,8 @@ public:
         second = back->next;
         back->next = NULL;
         slow = head;
-        // while(slow)
-        // {
-        //     cout << slow->val << endl;
-        //     slow = slow->next;
-        // }
-        // cout << second->val << endl;
+        
+        //合并
         ListNode *H = new ListNode(0);
         while(slow)
         {

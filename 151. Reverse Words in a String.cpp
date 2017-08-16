@@ -2,15 +2,12 @@
 //去除多余空格采用的方法是有效区域法，用b作为指针即可。
 class Solution {
 public:
-    void reverseWords(string &s)
-    {
+    void reverseWords(string &s) {
         reverse(s.begin(), s.end());
         int len = s.size();
         int b = -1;
-        for(int i = 0; i < len; i++)
-        {
-            if(s[i] != ' ')
-            {
+        for(int i = 0; i < len; i++) {
+            if(s[i] != ' ') {
                 if(b >= 0)
                     s[++b] = ' ';
                 int j = i;

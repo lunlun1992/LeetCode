@@ -3,31 +3,26 @@
 class MinStack {
 public:
     /** initialize your data structure here. */
-    MinStack() 
-    {
+    MinStack() {
         mini = INT_MAX; 
     }
     
-    void push(int x)
-    {
-        if(x <= mini)
-        {
+    void push(int x) {
+        if (x <= mini) {
             st.push(mini);
             mini = x;
         }
         st.push(x);
     }
     
-    void pop() 
-    {
-        if(st.top() == mini)
-        {
+    void pop() {
+        if(st.top() == mini) {
             st.pop();
             mini = st.top();
             st.pop();
-        }
-        else
+        } else {
             st.pop();
+        }
     }
     
     int top()

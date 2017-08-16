@@ -2,24 +2,22 @@
 //然后每一次以i为偶数和奇数轴，看一下能否使得后边界的cut值变小。
 class Solution {
 public:
-    int minCut(string s)
-    {
+    int minCut(string s) {
         int len = s.size();
-        if(len == 0)
-            return 0;
-        vector<int> cut(len + 1, 0);
+        vector<int> dp(len + 1, 0);
         
-        for(int i = 0; i <= len; i++)
-            cut[i] = i - 1;
+        for (int i = 0; i <= len; i++)  //当i为0的时候，切割次数是－1，原因是当找到0时，切割次数加一，此时并不需要切割
+            dp[i] = i - 1;
         
-        for(int i = 0; i < len; i++)
-        {
-            for(int j = 0; i - j >= 0 && i + j < len && s[i - j] == s[i + j]; j++)//以字母为轴
-                cut[i + j + 1] = min(cut[i + j + 1], cut[i - j] + 1);
-            for(int j = 1; i - j + 1 >= 0 && i + j < len && s[i - j + 1] == s[i + j]; j++)//以空气为轴
-                cut[i + j + 1] = min(cut[i + j + 1], cut[i - j + 1] + 1);
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; i - j >= 0 && i + j < len && s[i - j] == s[i + j]; j++) {   // 以i为轴
+                dp[i + j + 1] = min(dp[i + j + 1], 1 + dp[i - j]);
+            }
+            
+            for (int j = 1; i - j + 1 >= 0 && i + j < len && s[i - j + 1] == s[i + j]; j++) {   //以i右边的空气为轴
+                dp[i + j + 1] = min(dp[i + j + 1], 1 + dp[i - j + 1]);
+            }
         }
-        
-        return cut[len];
+        return dp[len];
     }
 };

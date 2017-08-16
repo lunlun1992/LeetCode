@@ -1,8 +1,7 @@
 //动态规划，每一次算一个位置上能不能划分s
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& wordDict)
-    {
+    bool wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> dict(wordDict.begin(), wordDict.end());
         int len = s.size();
         vector<bool> dp(len + 1, false);

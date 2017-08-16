@@ -3,8 +3,7 @@
 //要不然不一样长，但是短的插入长的对应字母，就一样了
 class Solution {
 public:
-    bool isOneEditDistance(string s, string t) 
-    {
+    bool isOneEditDistance(string s, string t) {
         int m = s.length();
         int n = t.length();
         if (m > n) 
@@ -12,10 +11,8 @@ public:
         if (n - m > 1) 
             return false;
         bool mismatch = false;
-        for (int i = 0; i < m; i++) 
-        {
-            if (s[i] != t[i]) 
-            {
+        for (int i = 0; i < m; i++) {
+            if (s[i] != t[i]) {
                 if (m == n) 
                     s[i] = t[i];
                 else 

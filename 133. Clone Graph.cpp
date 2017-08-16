@@ -11,8 +11,7 @@
 //最后需要加上visited
 class Solution {
 public:
-    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node)
-    {
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
         if(node == NULL)
             return NULL;
         stack<UndirectedGraphNode *> st;
@@ -22,23 +21,18 @@ public:
         UndirectedGraphNode *h = new UndirectedGraphNode(node->label);
         m[node] = h;
         visited.insert(node->label);
-        while(!st.empty())
-        {
+        while(!st.empty()) {
             UndirectedGraphNode *temp = st.top();
             st.pop();
             UndirectedGraphNode *head = m[temp];
-            for(int i = 0; i < temp->neighbors.size(); i++)
-            {
-                if(!visited.count(temp->neighbors[i]->label))
-                {
+            for(int i = 0; i < temp->neighbors.size(); i++) {
+                if(!visited.count(temp->neighbors[i]->label)) {
                     UndirectedGraphNode *u = new UndirectedGraphNode(temp->neighbors[i]->label);
                     st.push(temp->neighbors[i]);
                     head->neighbors.push_back(u);
                     visited.insert(temp->neighbors[i]->label);
                     m[temp->neighbors[i]] = u;
-                }
-                else
-                {
+                } else {
                     head->neighbors.push_back(m[temp->neighbors[i]]);
                 }
                 

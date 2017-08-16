@@ -8,45 +8,35 @@
  */
 class Solution {
 public:
-    ListNode* findmid(ListNode *h, ListNode *e)
-    {
+    ListNode* findmid(ListNode *h, ListNode *e) {
         ListNode *n1 = h;
         ListNode *n2 = h;
-        while (n2 != e && n2->next != e)
-        {
+        while (n2 != e && n2->next != e) {
             n1 = n1->next;
             n2 = n2->next->next;
         }
         return n1;
     }
 
-    ListNode* merge(ListNode *l, ListNode *lend, ListNode *r, ListNode *rend)
-    {
+    ListNode* merge(ListNode *l, ListNode *lend, ListNode *r, ListNode *rend) {
         ListNode *H = new ListNode(0);
         ListNode *n = H;
-        while (l != lend && r != rend)
-        {
-            if (l->val < r->val)
-            {
+        while (l != lend && r != rend) {
+            if (l->val < r->val) {
                 n->next = l;
                 n = n->next;
                 l = l->next;
-            }
-            else
-            {
+            } else {
                 n->next = r;
                 n = n->next;
                 r = r->next;
             }
         }
-        if (l == lend)
-        {
+        if (l == lend) {
             n->next = r;
             while (n->next != rend)
                 n = n->next;
-        }
-        else if (r == rend)
-        {
+        } else if (r == rend) {
             n->next = l;
             while (n->next != lend)
                 n = n->next;

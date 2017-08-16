@@ -5,8 +5,7 @@ public:
     int nRows;
     int nCols;
     typedef pair<int, int> P;
-    void dfs(int i, int j, vector<vector<char>>& b)
-    {
+    void dfs(int i, int j, vector<vector<char>>& b) {
         //printf("%d %d\n", i, j);
         stack<P> st;
         st.push(P(i, j));
@@ -25,8 +24,7 @@ public:
             st.push(P(f, s + 1));
         }
     }
-    void solve(vector<vector<char>>& board) 
-    {
+    void solve(vector<vector<char>>& board) {
         nRows = board.size();
         if(nRows == 0)
             return;

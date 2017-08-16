@@ -10,15 +10,14 @@ public:
         int r = len - 1;
         while(l != r && nums[l] == nums[r])
             l++;
-        while(nums[l] > nums[r])
-        {
+        while(nums[l] > nums[r]) {
+            while(l != r && nums[l] == nums[r])
+                l++;
             int mid = l + (r - l) / 2;
             if(nums[mid] >= nums[l])
                 l = mid + 1;
             else
                 r = mid;
-            while(l != r && nums[l] == nums[r])
-                l++;
         }
         return nums[l];
     }

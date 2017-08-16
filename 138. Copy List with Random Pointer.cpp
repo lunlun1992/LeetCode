@@ -6,37 +6,35 @@
  *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
  * };
  */
-//把random节点接在每一个源节点后面，然后就方便了额。
+
 class Solution {
 public:
-    RandomListNode *copyRandomList(RandomListNode *head) 
-    {
-        if(NULL == head)
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if (NULL == head)
             return NULL;
+        //1. 把random节点接在每一个源节点后面。
         RandomListNode *node = head;
-        while(node)
-        {
+        while (node) {
             RandomListNode *copy = new RandomListNode(node->label);
             copy->next = node->next;
             node->next = copy;
             node = copy->next;
         }
         
-        
+        //2. 把原节点的random节点赋值给copy的节点。
         node = head;
-        while(node)
-        {
+        while (node) {
             RandomListNode *copy = node->next;
-            if(node->random)
+            if (node->random)
                 copy->random = node->random->next;
             node = node->next->next;
         }
         
+        //3. 把random节点串起来
         RandomListNode *orinode = head;
         RandomListNode *newnode = head->next;
         RandomListNode *ret = head->next;
-        while(1)
-        {
+        for (;;) {
             orinode->next = orinode->next->next;
             orinode = orinode->next;
             if(newnode->next == NULL)

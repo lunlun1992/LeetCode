@@ -1,46 +1,36 @@
-//这道题就是递归找划分点
 class Solution {
 public:
     vector<vector<string>> ret;
-    vector<string> vec;
-
-    bool isPalindrome(string s, int start, int end)
-    {
-        if(start == end)
-            return true;
-        while(start < end && s[start] == s[end])
-        {
-            start++;
-            end--;
+    vector<string> now;
+    
+    bool isP(string&s, int b, int e) {
+        while (b < e) {
+            if (s[b] == s[e]) {
+                b++;
+                e--;
+            } else {
+                return false;
+            }
         }
-        if(start >= end)
-            return true;
-        else
-            return false;
+        return true;
     }
-
-    void part(string s, int start)
-    {
-        if(start == s.size())
-        {
-            ret.push_back(vec);
+    
+    void dfs(string& s, int idx) {
+        if (idx == s.size()) {
+            ret.push_back(now);
             return;
         }
-        for(int i = start; i < s.size(); i++)
-        {
-            if(isPalindrome(s, start, i))
-            {
-                vec.push_back(s.substr(start, i - start + 1));
-                part(s, i + 1);
-                vec.pop_back();
+        for (int i = idx; i < s.size(); i++) {
+            if (isP(s, idx, i)) {
+                now.push_back(s.substr(idx, i - idx + 1));
+                dfs(s, i + 1);
+                now.pop_back();
             }
         }
     }
-    vector<vector<string>> partition(string s)
-    {
-        if(s.empty())
-            return ret;
-        part(s, 0);
+    
+    vector<vector<string>> partition(string s) {
+        dfs(s, 0);
         return ret;
     }
 };

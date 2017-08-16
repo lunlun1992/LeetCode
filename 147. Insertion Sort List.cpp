@@ -8,11 +8,9 @@
  */
 class Solution {
 public:
-    ListNode* insertionSortList(ListNode* head) 
-    {
+    ListNode* insertionSortList(ListNode* head) {
         ListNode H(INT_MIN);
-        for(ListNode *node = head; node;)
-        {
+        for(ListNode *node = head; node;) {
             ListNode *h = &H;
             while(h->next && h->next->val < node->val)
                 h = h->next;

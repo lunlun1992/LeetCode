@@ -10,8 +10,7 @@
 //奇怪的需求，不过可以用递归的方法解决
 class Solution {
 public:
-    TreeNode* upsideDownBinaryTree(TreeNode* root) 
-    {
+    TreeNode* upsideDownBinaryTree(TreeNode* root) {
         if(!root || !root->left)
             return root;
         TreeNode *left = root->left;
