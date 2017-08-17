@@ -1,4 +1,3 @@
-//利用拷贝构造函数。
 // Below is the interface for Iterator, which is already defined for you.
 // **DO NOT** modify the interface for Iterator.
 class Iterator {
@@ -25,20 +24,17 @@ public:
 	}
 
     // Returns the next element in the iteration without advancing the iterator.
-	int peek() 
-	{
-        return Iterator(*this).next();
+	int peek() {
+        return Iterator(*this).next();	//拷贝构造函数，每一次都拷贝一个副本做peek，浪费空间。
 	}
 
 	// hasNext() and next() should behave the same as in the Iterator interface.
 	// Override them if needed.
-	int next() 
-	{
+	int next() {
 	    return Iterator::next();
 	}
 
-	bool hasNext() const 
-	{
-	    return Iterator::hasNext();    
+	bool hasNext() const {
+	    return Iterator::hasNext();
 	}
 };

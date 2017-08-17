@@ -6,13 +6,13 @@ public:
             return 0;
         else if(n == 1)
             return k;
-        int diff = k * (k - 1);//0 and 1 have different colors
-        int same = k;          //0 and 1 have same colors
-        for(int i = 2; i < n; i++)
-        {
-            int lastdiff = diff;
-            diff = same * (k - 1) + diff * (k - 1);//i - 1 and i have different colors
-            same = lastdiff;                       //i - 1 and i have same colors
+        int diff = (k - 1) * k; //n = 2
+        int same = k;
+        
+        for (int i = 3; i <= n; i++) {
+            int lastsame = same;
+            same = diff;
+            diff = (k - 1) * (lastsame + diff);
         }
         return same + diff;
     }

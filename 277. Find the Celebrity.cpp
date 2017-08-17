@@ -5,17 +5,20 @@ bool knows(int a, int b);
 //最后检验一下candidate是否大家都认识以及是否一个人也不认识
 class Solution {
 public:
-    int findCelebrity(int n) 
-    {
-        if(!n)
+    int findCelebrity(int n) {
+        if (!n)
             return -1;
-        int candidate = 0;
-        for(int i = 1; i < n; i++)
-            if(!knows(i, candidate))
-                candidate = i;
-        for(int i = 0; i < n; i++)
-            if(i != candidate && (!knows(i, candidate) || knows(candidate, i)))
+        int cand = 0;
+        for (int i = 1; i < n; i++) {
+            if (!knows(i, cand)) {
+                cand = i;
+            }
+        } 
+        for (int i = 0; i < n; i++) {
+            if (i != cand && (knows(cand, i) || !knows(i, cand))) {
                 return -1;
-        return candidate;
+            }
+        }
+        return cand;
     }
 };

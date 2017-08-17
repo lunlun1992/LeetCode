@@ -1,19 +1,18 @@
-//首先要确定每一个的个数
-//然后累加，O(n)
 class Solution {
 public:
-    int hIndex(vector<int>& citations) 
-    {
+    int hIndex(vector<int>& citations) {
         int len = citations.size();
-        vector<int> counts(len + 1, 0);
-        for(int i = 0; i < len; i++)
-            counts[min(len, citations[i])]++;
-        for(int i = len; i > 0; i--)
-        {
-            if(counts[i] >= i)
+        vector<int> accu(len + 1, 0);
+        
+        for (auto n : citations) {
+            accu[min(len, n)]++;
+        }
+        
+        for (int i = len; i >= 0; i--) {
+            if (accu[i] >= i)
                 return i;
             else
-                counts[i - 1] += counts[i];
+                accu[i - 1] += accu[i];
         }
         return 0;
     }
