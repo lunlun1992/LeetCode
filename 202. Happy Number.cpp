@@ -1,11 +1,8 @@
-//环形检测算法，一个快一个慢，很快就能够检测到了
 class Solution {
 public:
-    int digitSquareSum(int n) 
-    {
+    int digitSquareSum(int n) {
         int sum = 0, tmp;
-        while (n) 
-        {
+        while (n) {
             tmp = n % 10;
             sum += tmp * tmp;
             n /= 10;
@@ -13,12 +10,10 @@ public:
         return sum;
     }
 
-    bool isHappy(int n) 
-    {
+    bool isHappy(int n) {
         int slow, fast;
         slow = fast = n;
-        do 
-        {
+        do {
             slow = digitSquareSum(slow);
             fast = digitSquareSum(fast);
             fast = digitSquareSum(fast);

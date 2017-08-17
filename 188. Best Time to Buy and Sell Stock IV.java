@@ -1,17 +1,14 @@
 public class Solution {
-    public int maxProfit(int k, int[] prices) 
-    {
+    public int maxProfit(int k, int[] prices) {
         int len = prices.length;
         if (k >= len / 2) return quickSolve(prices);
         
         int[][] t = new int[k + 1][len];
-        for (int i = 1; i <= k; i++) 
-        {
-            int tmpMax =  -prices[0];
-            for (int j = 1; j < len; j++)
-            {
-                t[i][j] = Math.max(t[i][j - 1], prices[j] + tmpMax);
-                tmpMax =  Math.max(tmpMax, t[i - 1][j - 1] - prices[j]);//tmpMax指的是之前某一天买入时的最大值。
+        for (int i = 1; i <= k; i++) {
+            int tmpmax = -prices[0];
+            for (int j = 1; j < len; j++) {
+                t[i][j] = Math.max(t[i][j - 1], prices[j] + tmpmax);     //确定本次卖不卖。
+                tmpmax = Math.max(t[i - 1][j - 1] - prices[j], tmpmax);  //确定花一个k买本idx，或者不买，之中的较大值。
             }
         }
         return t[k][len - 1];

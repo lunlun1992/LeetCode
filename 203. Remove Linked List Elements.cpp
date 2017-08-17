@@ -6,19 +6,19 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) 
     {
         ListNode H(0);
         H.next = head;
         ListNode *h = &H;
-        while(h->next)
-        {
-            if(h->next->val == val)
+        while (h->next) {
+            if (h->next->val == val) {
                 h->next = h->next->next;
-            else
+            } else {
                 h = h->next;
+            }
         }
         return H.next;
     }

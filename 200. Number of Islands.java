@@ -4,8 +4,7 @@ public class Solution {
     static int row;
     static int col;
     static char[][] g;
-    static boolean dfs(int i, int j)
-    {
+    static boolean dfs(int i, int j) {
         if(i >= row || i < 0 || j >= col || j < 0 || flag[i][j] || g[i][j] == '0')
             return false;
         flag[i][j] = true;
@@ -15,8 +14,7 @@ public class Solution {
         dfs(i, j + 1);
         return true;
     }
-    public int numIslands(char[][] grid)
-    {
+    public int numIslands(char[][] grid) {
         row = grid.length;
         if(row == 0)
             return 0;
@@ -24,7 +22,6 @@ public class Solution {
         if(col == 0)
             return 0;
         g = grid;
-       // System.out.println(row + "\t" + col);
         flag = new boolean[row][col];
         int ret = 0;
         for(int i = 0; i < row; i++)

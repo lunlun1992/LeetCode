@@ -1,4 +1,4 @@
-//记忆化DFS
+//Trie + DFS
 class Trie
 {
 public:
@@ -14,14 +14,14 @@ public:
 class Solution
 {
 public:
-    void dfs(int i, int j, vector<vector<char>>& board, Trie *node, vector<string>& ret, vector<string>& words, vector<vector<char>>& hash, string now)
-    {
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || node->next[board[i][j] - 'a'] == NULL || hash[i][j] == 0)
+    void dfs(int i, int j, vector<vector<char>>& board, 
+             Trie *node, vector<string>& ret, vector<string>& words, vector<vector<char>>& hash, string now) {
+        if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() ||
+           node->next[board[i][j] - 'a'] == NULL || hash[i][j] == 0)
             return;
         node = node->next[board[i][j] - 'a'];
         now += board[i][j];
-        if(node->isend && !used.count(now))
-        {
+        if (node->isend && !used.count(now)) {
             ret.push_back(now);
             used.insert(now);
         }
@@ -33,36 +33,29 @@ public:
         hash[i][j] = board[i][j];
     }
 
-    vector<string> findWords(vector<vector<char>>& board, vector<string>& words)
-    {
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
         vector<string> ret;
         int row = board.size();
         int col = board[0].size();
         int len = words.size();
         Trie *root = new Trie();
-        for(int i = 0; i < len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             Trie *node = root;
-            for(int j = 0; j < words[i].size(); j++)
-            {
-                if(node->next[words[i][j] - 'a'])
-                {
+            for (int j = 0; j < words[i].size(); j++) {
+                if (node->next[words[i][j] - 'a']) {
                     node = node->next[words[i][j] - 'a'];
-                }
-                else
-                {
+                } else {
                     Trie *temp = new Trie();
                     node->next[words[i][j] - 'a']= temp;
                     node = temp;
-                }
-                
+                }         
             }
             node->isend = true;
         }
     
         vector<vector<char>> hash(board);
-        for(int i = 0; i < row; i++)
-            for(int j = 0; j < col; j++)
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
                 dfs(i, j, board, root, ret, words, hash, "");
         return ret;
     }
