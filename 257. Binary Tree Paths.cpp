@@ -7,11 +7,9 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
-
-    vector<string> binaryTreePaths(TreeNode* root)
-    {
+    vector<string> binaryTreePaths(TreeNode* root) {
         if(!root)
             return ret;
         rr = root;
@@ -22,8 +20,7 @@ private:
     vector<string> ret;
     string now;
     TreeNode *rr;
-    void dfs(TreeNode *node)
-    {
+    void dfs(TreeNode *node) {
         TreeNode *r = node->right;
         TreeNode *l = node->left;
         string now_bak = now;
@@ -33,15 +30,10 @@ private:
             now += "->" + to_string(node->val);
         if(!r && !l)
             ret.push_back(now);
-        else if(!r)
+        if (l)
             dfs(l);
-        else if(!l)
+        if (r)
             dfs(r);
-        else
-        {
-            dfs(r);
-            dfs(l);
-        }
         now = now_bak;
     }
 };

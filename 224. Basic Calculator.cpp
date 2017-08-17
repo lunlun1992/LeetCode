@@ -9,47 +9,35 @@ public:
         int sign = 1;
         int len = s.size();
         int i = 0;
-        while(i < len)
-        {
-            if(isdigit(s[i]))
-            {
+        while (i < len) {
+            if (isdigit(s[i])) {
                 int now = 0;
-                while(i < len && isdigit(s[i]))
-                {
+                while (i < len && isdigit(s[i])) {
                     now *= 10;
                     now += (s[i] - '0');
                     i++;
                 }
                 ans += sign * now;
-            }
-            else if(s[i] == '+')
-            {
+            } else if (s[i] == '+') {
                 sign = 1;
                 i++;
-            }
-            else if(s[i] == '-')
-            {
+            } else if(s[i] == '-') {
                 sign = -1;
                 i++;
-            }
-            else if(s[i] == '(')
-            {
+            } else if(s[i] == '(') {
                 st.push(ans);
                 st.push(sign);
                 ans = 0;
                 sign = 1;
                 i++;
-            }
-            else if(s[i] == ')')
-            {
+            } else if(s[i] == ')') {
                 int ts = st.top();
                 st.pop();
                 int ta = st.top();
                 st.pop();
                 ans = ans * ts + ta;
                 i++;
-            }
-            else
+            } else
                 i++;
         }
         return ans;

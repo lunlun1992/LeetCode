@@ -1,7 +1,6 @@
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) 
-    {
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int row = matrix.size();
         if(!row)
             return false;
@@ -10,8 +9,7 @@ public:
             return false;
         int i = 0;
         int j = col - 1;
-        while(i < row && j >= 0)
-        {
+        while(i < row && j >= 0) {
             if(target == matrix[i][j])
                 return true;
             else if(target < matrix[i][j])

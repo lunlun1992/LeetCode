@@ -7,21 +7,18 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
-    int countNodes(TreeNode* root) 
-    {
-        if(!root)
+    int countNodes(TreeNode* root) {
+        if (!root)
             return 0;
         int llen = 0;
         int rlen = 0;
         TreeNode *node = root;
-        while(node)
-        {
+        while (node) {
             llen++;
             node = node->left;
-        }
-        
+        } 
         node = root;
         while(node)
         {

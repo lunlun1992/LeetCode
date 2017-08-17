@@ -2,57 +2,48 @@
 //顺序芯片淘汰法虽然时间复杂度高，但是简单。
 class Solution {
 public:
-    vector<int> majorityElement(vector<int>& nums)
-    {
+    vector<int> majorityElement(vector<int>& nums) {
         int len = nums.size();
-        if(len == 1)   
+        if(!len)
             return nums;
-        vector<int> ret;
-        int b0, b1;
-        int c0 = 0;
+        int n1;
         int c1 = 0;
-        for(int i = 0; i < len; i++)
-        {
-            if(b1 != nums[i] && c0 == 0)
-            {
-                b0 = nums[i];
-                c0++;
-            }
-            else if(b0 != nums[i] && c1 == 0)
-            {
-                b1 = nums[i];
+        int n2;
+        int c2 = 0;
+        vector<int> ret;
+        for (int i = 0; i < len; i++) {
+            if(!c1 && nums[i] != n2) {
                 c1++;
-            }
-            else
-            {
-                if(nums[i] == b0)
-                    c0++;
-                else if(nums[i] == b1)
+                n1 = nums[i];
+            } else if(!c2 && nums[i] != n1) {
+                c2++;
+                n2 = nums[i];
+            } else {
+                if(nums[i] == n1)
                     c1++;
-                else
-                {
-                    c0--;
+                else if(nums[i] == n2)
+                    c2++;
+                else {
                     c1--;
+                    c2--;
                 }
             }
         }
-        if(c0 > 0)
-        {
+        if (c1) {
             int count = 0;
             for(int i = 0; i < len; i++)
-                if(b0 == nums[i])
+                if(n1 == nums[i])
                     count++;
             if(count > len / 3)
-                ret.push_back(b0);
+                ret.push_back(n1);
         }
-        if(c1 > 0)
-        {
+        if (c2) {
             int count = 0;
             for(int i = 0; i < len; i++)
-                if(b1 == nums[i])
+                if(n2 == nums[i])
                     count++;
             if(count > len / 3)
-                ret.push_back(b1);
+                ret.push_back(n2);
         }
         return ret;
     }

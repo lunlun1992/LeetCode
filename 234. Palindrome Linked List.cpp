@@ -6,15 +6,13 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
-    ListNode *reverseList(ListNode *head)
-    {
+    ListNode *reverseList(ListNode *head) {
         ListNode *H = new ListNode(0);
         H->next = head;
         ListNode *node = head;
-        while(node->next != NULL)
-        {
+        while (node->next != NULL) {
             ListNode *tmp = node->next;
             node->next = node->next->next;
             tmp->next = H->next;
@@ -22,19 +20,17 @@ public:
         }
         return H->next;
     }
-    bool isPalindrome(ListNode* head) 
-    {
-        if(!head || head->next == NULL)
+    bool isPalindrome(ListNode* head) {
+        if (!head || head->next == NULL)
             return true;
         ListNode *fast = head;
         ListNode *slow = head;
-        while(fast != NULL)
-        {
+        while (fast != NULL) {
             fast = fast->next;
-            if(!fast)
+            if (!fast)
                 break;
             fast = fast->next;
-            if(!fast)
+            if (!fast)
                 break;
             slow = slow->next;
         }
@@ -44,9 +40,8 @@ public:
         ListNode *rev = reverseList(mid);
         
         slow = head;
-        while(rev)
-        {
-            if(slow->val != rev->val)
+        while (rev) {
+            if (slow->val != rev->val)
                 return false;
             slow = slow->next;
             rev = rev->next;

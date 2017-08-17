@@ -8,7 +8,7 @@ public:
         int len = edges.size();
         if(len != n - 1)//无环时应该有n-1条边
             return false;
-        for(int i = 0; i < len; i++)//确定无环的算法
+        for(int i = 0; i < len; i++)//确定无环的算法，并查集
         {
             int f = edges[i].first;
             int s = edges[i].second;

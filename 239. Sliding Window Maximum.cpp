@@ -3,14 +3,12 @@
 //这样双端队列里面的队头肯定是最大的。
 class Solution {
 public:
-    vector<int> maxSlidingWindow(vector<int>& nums, int k) 
-    {
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         int len = nums.size();
         vector<int> ret;
         deque<int> dq;
         
-        for(int i = 0; i < len; i++)
-        {
+        for(int i = 0; i < len; i++) {
             if(i - k >= dq.front())
                 dq.pop_front();
             while(!dq.empty() && nums[dq.back()] < nums[i])

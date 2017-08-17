@@ -7,8 +7,7 @@ public:
         for(int i = 1; i < len; i++)
             ret[i] = ret[i - 1] * nums[i - 1];
         int mul = 1;
-        for(int i = len - 1; i >= 0; i--)
-        {
+        for(int i = len - 1; i >= 0; i--) {
             ret[i] *= mul;
             mul *= nums[i];
         }
