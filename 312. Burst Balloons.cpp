@@ -2,27 +2,18 @@
 //为了不采用递归的方法加入多余计算，所以采用从最小长度到最大长度的dp方法进行计算，其时间复杂度为O(n^3)
 class Solution {
 public:
-    int maxCoins(vector<int>& nums)
-    {
-        if(nums.empty())
-            return 0;
+    int maxCoins(vector<int>& nums) {
         nums.push_back(1);
         nums.insert(nums.begin(), 1);
         int len = nums.size();
-        vector<vector<int>> dp;
-        for(int i = 0; i < len; i++)
-        {
-            vector<int> temp(len, 0);
-            dp.push_back(temp);
-        }
-
-        for(int l = 1; l < len; l++)//gap length between low boundary and high boundary
-        {
-            for(int lowb = 0; lowb < len - l; lowb++)
-            {
-                int highb = lowb + l;
-                for(int k = lowb + 1; k < highb; k++)
-                    dp[lowb][highb] = max(dp[lowb][highb], nums[lowb] * nums[highb] * nums[k] + dp[lowb][k] + dp[k][highb]);
+        vector<vector<int>> dp(len, vector<int>(len, 0));
+        
+        for (int d = 2; d < len; d++) {
+            for (int i = 0; i + d < len; i++) {
+                int j = i + d;
+                for (int k = i + 1; k < j; k++) {   
+                    dp[i][j] = max(dp[i][j], dp[i][k] + dp[k][j] + nums[i] * nums[k] * nums[j]);
+                }
             }
         }
         return dp[0][len - 1];
