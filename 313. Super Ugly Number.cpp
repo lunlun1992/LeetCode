@@ -4,22 +4,22 @@
 //看做一个用许多质数凑乘积的过程。
 class Solution {
 public:
-    int nthSuperUglyNumber(int n, vector<int>& primes) 
-    {
-        int len = primes.size();
-        vector<int> index(len, 0);
-        vector<int> res(n);
-        res[0] = 1;
-        for(int i = 1; i < n; i++)
-        {
-            int mini = INT_MIN;
-            for(int j = 0; j < len; j++)
-                mini = min(mini, primes[j] * res[index[j]]);
-            res[i] = mini;
-            for(int j = 0; j < len; j++)
-                if(res[i] % primes[j] == 0)
-                    index[j]++;
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        vector<int> idx(primes.size(), 0);
+        vector<int> ret(n, 0);
+        ret[0] = 1;
+        for (int i = 1; i < n; i++) {
+            int mini = INT_MAX;
+            for (int j = 0; j < primes.size(); j++) {
+                mini = min(mini, primes[j] * ret[idx[j]]);
+            }
+            ret[i] = mini;
+            for (int j = 0; j < primes.size(); j++) {
+                if (mini % primes[j] == 0) {
+                    idx[j]++;
+                }
+            }
         }
-        return res[n - 1];
+        return ret[n - 1];
     }
 };

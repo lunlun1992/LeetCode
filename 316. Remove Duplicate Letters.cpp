@@ -5,8 +5,7 @@
 //这样的速度是O(26n)，有点慢。
 class Solution {
 public:
-    int findtheFirstEnd(int *alpha)
-    {
+    int findtheFirstEnd(int *alpha) {
         int mini = INT_MAX;
         for(int i = 0; i < 26; i++)
             if(alpha[i] != -1)
@@ -14,14 +13,12 @@ public:
         return mini;
     }
 
-    string removeDuplicateLetters(string s)
-    {
+    string removeDuplicateLetters(string s) {
         int len = s.size();
         int alpha[26];
         memset(alpha, -1, sizeof(alpha));
         for(int i = 0; i < len; i++)
             alpha[s[i] - 'a'] = i;
-
         int retlen = 0;
         for(int i = 0; i < 26; i++)
             if(alpha[i] != -1)
@@ -30,26 +27,19 @@ public:
         string ret(retlen, 0);
         int begin = 0;
         int end = findtheFirstEnd(alpha);
-       // printf("%d\n", end);
-        for(int i = 0; i < retlen; i++)
-        {
+        for (int i = 0; i < retlen; i++) {
             char smallest = 'z' + 1;
-            for(int k = begin; k <= end; k++)
-            {
-                if(alpha[s[k] - 'a'] != -1 && s[k] < smallest)
-                {
+            for (int k = begin; k <= end; k++) {
+                if (alpha[s[k] - 'a'] != -1 && s[k] < smallest) {
                     smallest = s[k];
                     begin = k + 1;
                 }
             }
-           // printf("%c\n", smallest);
             ret[i] = smallest;
             alpha[smallest - 'a'] = -1;
-            if(smallest == s[end])
+            if (smallest == s[end])
                 end = findtheFirstEnd(alpha);
         }
-
         return ret;
-
     }
 };

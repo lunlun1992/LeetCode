@@ -6,11 +6,9 @@
 
 class Solution {
 public:
-
-#define MAX 11110
-
-    void makepositive(vector<int> &nums)
-    {
+    #define MAXI 12010
+    int BIT[MAXI];
+    void makepositive(vector<int> &nums) {
         int len = nums.size();
         int min = 1;
         for(int i = 0; i < len; i++)
@@ -19,43 +17,28 @@ public:
             for(int i = 0; i < len; i++)
                 nums[i] += (-min + 1);
     }
-    void update(int index, int val)
-    {
-        while(index < MAX)
-        {
-            BIT[index] += val;
-            index += (index & (-index));
-        }
-    }
-
-    int get(int index)
-    {
-        int sum = 0;
-        while(index > 0)
-        {
-            sum += BIT[index];
-            index -= (index & (-index));
-        }
-        return sum;
-    }
-
-    vector<int> countSmaller(vector<int>& nums)
-    {
-        int len = nums.size();
-        vector<int> ret(len, 0);
-        if(len <= 0)
-            return ret;
-        BIT.assign(MAX, 0);
-
-        makepositive(nums);
-
-        for(int i = len - 1; i >= 0; i--)
-        {
-            ret[i] = get(nums[i]);
-            update(nums[i] + 1, 1);
+    int get(int idx) {
+        int ret = 0;
+        for (int i = idx; i > 0; i -= (i & (-i))) {
+            ret += BIT[i];
         }
         return ret;
     }
-private:
-    vector<int> BIT;
+    
+    void inc(int idx) {
+        for (int i = idx; i < MAXI; i += (i & (-i))) {
+            BIT[i]++;
+        }
+    }
+    
+    vector<int> countSmaller(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> ret(len, 0);
+        makepositive(nums);
+        for (int i = len - 1; i >= 0; i--) {
+            ret[i] = get(nums[i]);
+            inc(nums[i] + 1);
+        }
+        return ret;
+    }
 };
