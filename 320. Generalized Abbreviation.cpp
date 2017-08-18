@@ -3,24 +3,19 @@
 //不要的话，count+1，指针加一
 class Solution {
 public:
-    vector<string> generateAbbreviations(string word) 
-    {
+    vector<string> generateAbbreviations(string word) {
         dfs(word, "", 0, 0);
         return ret;
     }
 private:
     vector<string> ret;
-    void dfs(string &word, string now, int pos, int count)
-    {
-        if(pos == word.size())
-        {
+    void dfs(string &word, string now, int pos, int count) {
+        if(pos == word.size()) {
             if(count > 0)
                 now += to_string(count);
             ret.push_back(now);
             return;
-        }
-        else
-        {
+        } else {
             dfs(word, now, pos + 1, count + 1);
             dfs(word, now + (count > 0 ? to_string(count) : "") + word[pos], pos + 1, 0);
         }
